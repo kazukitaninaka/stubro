@@ -6,7 +6,7 @@ export default function Layout({ children }: { children: ReactNode }) {
       <header className="bg-sky-500 p-5 text-white">
         <h1>STUBRO</h1>
       </header>
-      <div>{children}</div>
+      <div className="container mx-auto py-5">{children}</div>
       <footer className="bg-sky-500 p-5 text-white">FOOTER</footer>
     </div>
   );
