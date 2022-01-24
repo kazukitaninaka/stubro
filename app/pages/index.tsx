@@ -1,5 +1,7 @@
+import { useState } from "react";
 import type { NextPage } from "next";
 import Card from "../components/Card";
+import ConfirmModal from "../components/ConfirmModal";
 
 const Home: NextPage = () => {
   const mentors = [
@@ -52,13 +54,21 @@ const Home: NextPage = () => {
       price: 1000,
     },
   ];
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   return (
     <div>
       <div className="flex flex-wrap gap-5">
         {mentors.map((mentor) => (
-          <Card key={mentor.id} mentor={mentor} />
+          <Card
+            key={mentor.id}
+            mentor={mentor}
+            setIsModalOpen={setIsModalOpen}
+          />
         ))}
       </div>
+      <ConfirmModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
     </div>
   );
 };

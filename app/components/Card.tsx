@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { TagIcon } from "@heroicons/react/solid";
 
 const mnt = {
@@ -15,7 +15,13 @@ const mnt = {
 };
 type Mentor = typeof mnt;
 
-export default function Card({ mentor }: { mentor: Mentor }) {
+export default function Card({
+  mentor,
+  setIsModalOpen,
+}: {
+  mentor: Mentor;
+  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
+}) {
   return (
     <div className="w-full md:w-[48%] lg:w-[30%] border border-transparent rounded-md divide-y divide-dashed shadow-md bg-white">
       <div className="p-3">
@@ -64,7 +70,10 @@ export default function Card({ mentor }: { mentor: Mentor }) {
         </div>
       </div>
       <div className="p-3 flex justify-center">
-        <button className="bg-sky-500 text-white py-2 px-3 rounded-full">
+        <button
+          className="bg-sky-500 text-white py-2 px-3 rounded-full"
+          onClick={() => setIsModalOpen(true)}
+        >
           相談してみる
         </button>
       </div>
