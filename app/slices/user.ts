@@ -21,11 +21,11 @@ const userSlice = createSlice({
         email: action.payload.email,
       };
     },
-    signOut: () => {
+    setUserInitial: () => {
       return initialState;
     },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setUserInitial } = userSlice.actions;
 export default userSlice;
