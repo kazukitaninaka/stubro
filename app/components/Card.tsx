@@ -17,17 +17,17 @@ type Mentor = typeof mnt;
 
 export default function Card({ mentor }: { mentor: Mentor }) {
   return (
-    <div className="w-full md:w-[48%] lg:w-[30%] border rounded-md divide-y divide-dashed shadow-sm">
+    <div className="w-full md:w-[48%] lg:w-[30%] border border-transparent rounded-md divide-y divide-dashed shadow-md bg-white">
       <div className="p-3">
         <table className="table-fixed">
           <tbody>
             <tr>
               <td className="w-1/3 font-bold">留学先国</td>
-              <td>{mentor.destination}</td>
+              <td className="text-lg">{mentor.destination}</td>
             </tr>
             <tr>
               <td className="font-bold">教育機関名</td>
-              <td>{mentor.eduOrg}</td>
+              <td className="text-lg">{mentor.eduOrg}</td>
             </tr>
             <tr>
               <td className="font-bold">留学形態</td>
@@ -35,9 +35,9 @@ export default function Card({ mentor }: { mentor: Mentor }) {
                 {mentor.type.map((tag) => (
                   <span
                     key={tag}
-                    className="flex items-center border border-sky-500 rounded-full px-1 text-white bg-sky-500"
+                    className="flex items-center border-2 border-gray-500 rounded-full px-1.5"
                   >
-                    <TagIcon className="h-5 w-5" />
+                    <TagIcon className="h-4 w-4" />
                     <span>{tag}</span>
                   </span>
                 ))}
@@ -45,7 +45,7 @@ export default function Card({ mentor }: { mentor: Mentor }) {
             </tr>
             <tr>
               <td className="font-bold">留学期間</td>
-              <td>{mentor.term}</td>
+              <td className="text-lg">{mentor.term}</td>
             </tr>
           </tbody>
         </table>
@@ -57,9 +57,11 @@ export default function Card({ mentor }: { mentor: Mentor }) {
             alt="profile picture"
             className="w-12 h-12 inline object-cover rounded-full"
           />
-          <div>{mentor.username}</div>
+          <div className="text-xl">{mentor.username}</div>
         </div>
-        <div>相談料: {mentor.price}円 / 回</div>
+        <div className="text-sm">
+          相談料: <span className="text-lg">{mentor.price}</span>円 / 回
+        </div>
       </div>
       <div className="p-3 flex justify-center">
         <button className="bg-sky-500 text-white py-2 px-3 rounded-full">
