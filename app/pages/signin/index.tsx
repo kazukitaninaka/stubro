@@ -19,7 +19,7 @@ export default function SingIn() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        dispatch(setUser({ email: user.email! }));
+        dispatch(setUser({ id: user.uid, email: user.email! }));
       })
       .catch((error) => {
         console.log(error);
@@ -34,7 +34,7 @@ export default function SingIn() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        dispatch(setUser({ email: user.email! }));
+        dispatch(setUser({ id: user.uid, email: user.email! }));
       })
       .catch((error) => {
         console.log(error);

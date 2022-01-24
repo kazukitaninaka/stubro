@@ -9,9 +9,11 @@ export default function useAuth() {
 
   useEffect(() => {
     const auth = getAuth();
+    // check if user is logged in at first mount
+    // if so set user to userSlice
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch(setUser({ email: user.email! }));
+        dispatch(setUser({ id: user.uid, email: user.email! }));
       }
     });
   }, []);
