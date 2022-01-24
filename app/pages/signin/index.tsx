@@ -7,11 +7,13 @@ import {
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../slices/user";
+import { useRouter } from "next/router";
 
 export default function SingIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const router = useRouter();
 
   function createUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -20,6 +22,7 @@ export default function SingIn() {
       .then((userCredential) => {
         const user = userCredential.user;
         dispatch(setUser({ id: user.uid, email: user.email! }));
+        router.push("/");
       })
       .catch((error) => {
         console.log(error);
@@ -35,6 +38,7 @@ export default function SingIn() {
       .then((userCredential) => {
         const user = userCredential.user;
         dispatch(setUser({ id: user.uid, email: user.email! }));
+        router.push("/");
       })
       .catch((error) => {
         console.log(error);
