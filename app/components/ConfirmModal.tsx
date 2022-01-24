@@ -45,14 +45,16 @@ export default function ConfirmModal({
             leaveTo="opacity-0 scale-95"
           >
             <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-md">
-              <Dialog.Title
-                as="h3"
-                className="text-lg font-medium leading-6 text-gray-900"
-              >
-                相談希望日時を入力してください
+              <Dialog.Title as="h3" className="text-lg text-center font-medium">
+                詳細
               </Dialog.Title>
-              <textarea className="w-full mt-2 py-2 px-3 border"></textarea>
-
+              <p>相談希望日時を複数入力してください</p>
+              <textarea className="w-full mt-2 py-2 px-3 border h-[150px]"></textarea>
+              <p className="pt-2">
+                その他メッセージがございましたら入力してください
+              </p>
+              <small>（特に聞いてみたいことなど）</small>
+              <textarea className="w-full mt-2 py-2 px-3 border h-[100px]"></textarea>
               <div className="mt-4 text-center">
                 <button
                   type="button"
