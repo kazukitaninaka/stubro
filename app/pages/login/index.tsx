@@ -96,8 +96,9 @@ export default function SingIn() {
       <form className='mt-8 space-y-6' action='#' method='POST' onSubmit={loginViaGoogle}>
         <button
           type='submit'
-          className='group relative w-full flex justify-center py-2 px-4 border-2 text-sm font-medium rounded-md bg-white'
+          className='group relative w-full flex justify-center border-2 text-sm font-medium rounded-md bg-white'
         >
+          <img src='btn_google_light_normal_ios.svg' className='h-10 w-10' />
           Log in with Google
         </button>
       </form>
