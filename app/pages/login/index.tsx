@@ -9,6 +9,7 @@ import {
 } from 'firebase/auth';
 import useUserSlice from '../../slices/user/useUserSlice';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function SingIn() {
   const [email, setEmail] = useState('');
@@ -97,6 +98,12 @@ export default function SingIn() {
           >
             Log in
           </button>
+        </div>
+        <div>
+          アカウントをお持ちでない場合
+          <span className='text-sky-500 ml-2'>
+            <Link href='/signup'>新規登録</Link>
+          </span>
         </div>
       </form>
     </div>

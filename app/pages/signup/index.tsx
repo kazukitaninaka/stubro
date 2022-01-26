@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import useUserSlice from '../../slices/user/useUserSlice';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function SignUp() {
   const [email, setEmail] = useState('');
@@ -61,6 +62,12 @@ export default function SignUp() {
           >
             Sign up
           </button>
+        </div>
+        <div>
+          すでにアカウントをお持ちの場合
+          <span className='text-sky-500 ml-2'>
+            <Link href='/login'>ログイン</Link>
+          </span>
         </div>
       </form>
     </div>
