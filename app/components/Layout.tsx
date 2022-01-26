@@ -4,10 +4,12 @@ import useAuth from '../hooks/useAuth';
 import { RootState } from '../stores';
 import { UserCircleIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function Layout({ children }: { children: ReactNode }) {
   useAuth();
   const id = useSelector((state: RootState) => state.user.id);
+  const router = useRouter();
   return (
     <div className='flex flex-col min-h-screen'>
       <header className='bg-sky-500 p-5 text-white flex justify-between'>
@@ -19,9 +21,12 @@ export default function Layout({ children }: { children: ReactNode }) {
             <UserCircleIcon className='h-7 w-7 cursor-pointer' />
           </Link>
         ) : (
-          <Link href='/signin'>
-            <button>LOGIN</button>
-          </Link>
+          <button
+            className='bg-white text-sky-500 border border-transparent rounded-md px-2 py-1 hover:bg-slate-100'
+            onClick={() => router.push('/signin')}
+          >
+            LOGIN
+          </button>
         )}
       </header>
       <main className='bg-gray-50 flex-1'>
