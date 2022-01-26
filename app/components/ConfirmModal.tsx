@@ -52,14 +52,14 @@ export default function ConfirmModal({
                   詳細
                 </Dialog.Title>
                 <p>相談希望日時を複数入力してください</p>
-                <textarea className='w-full mt-2 py-2 px-3 border h-[150px]'></textarea>
+                <textarea className='w-full mt-2 py-2 px-3 border h-[150px] rounded-sm'></textarea>
                 <p className='pt-2'>その他メッセージがございましたら入力してください</p>
                 <small>（特に聞いてみたいことなど）</small>
-                <textarea className='w-full mt-2 py-2 px-3 border h-[100px]'></textarea>
+                <textarea className='w-full mt-2 py-2 px-3 border h-[100px] rounded-sm'></textarea>
                 <div className='mt-4 text-center'>
                   <button
                     type='button'
-                    className='inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-sky-500 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
+                    className='inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-sky-500 border border-transparent rounded-md hover:bg-sky-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
                     onClick={() => setIsModalOpen(false)}
                   >
                     決済画面へ
@@ -84,7 +84,7 @@ export default function ConfirmModal({
                 <div className='mt-4 text-center'>
                   <button
                     type='button'
-                    className='inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-sky-500 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
+                    className='inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-sky-500 border border-transparent rounded-md hover:bg-sky-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
                     onClick={() => {
                       setIsModalOpen(false);
                       router.push('/signin');

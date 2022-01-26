@@ -71,7 +71,7 @@ export default function Card({
       </div>
       <div className='p-3 flex justify-center'>
         <button
-          className='bg-sky-500 text-white py-2 px-3 rounded-full'
+          className='bg-sky-500 text-white py-2 px-3 rounded-full hover:bg-sky-600'
           onClick={() => setIsModalOpen(true)}
         >
           相談してみる
