@@ -1,11 +1,10 @@
 import { useEffect } from "react";
 import "../utils/firebase";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useDispatch } from "react-redux";
-import { setUser } from "../slices/user";
+import useUserSlice from "../slices/user/useUserSlice";
 
 export default function useAuth() {
-  const dispatch = useDispatch();
+  const { setUser } = useUserSlice();
 
   useEffect(() => {
     const auth = getAuth();
@@ -13,7 +12,7 @@ export default function useAuth() {
     // if so set user to userSlice
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch(setUser({ id: user.uid, email: user.email! }));
+        setUser({ id: user.uid, email: user.email! });
       }
     });
   }, []);

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type User = {
+export type User = {
   id: string | null;
   email: string;
   // 追加されるかも
@@ -27,5 +27,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, setUserInitial } = userSlice.actions;
+export const actions = userSlice.actions;
 export default userSlice;

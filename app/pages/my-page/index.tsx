@@ -1,20 +1,17 @@
 import { getAuth, signOut } from "firebase/auth";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserInitial } from "../../slices/user";
-import { RootState } from "../../stores";
+import useUserSlice from "../../slices/user/useUserSlice";
 import { useRouter } from "next/router";
 
 export default function MyPage() {
-  const { id, email } = useSelector((state: RootState) => state.user);
-  const dispatch = useDispatch();
+  const { user, setUserInitial } = useUserSlice();
   const router = useRouter();
 
   function handleSignOut() {
     const auth = getAuth();
     signOut(auth)
       .then(() => {
-        dispatch(setUserInitial());
+        setUserInitial();
         router.push("/signin");
       })
       .catch((e) => {
@@ -23,7 +20,7 @@ export default function MyPage() {
   }
   return (
     <div>
-      <p>Email: {email}</p>
+      <p>Email: {user.email}</p>
       <button
         className="border bg-sky-500 text-white p-2 mt-5"
         onClick={handleSignOut}
