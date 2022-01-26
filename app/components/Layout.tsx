@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import useAuth from '../hooks/useAuth';
 import { RootState } from '../stores';
 import { UserCircleIcon } from '@heroicons/react/solid';
+import { LoginIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -22,10 +23,11 @@ export default function Layout({ children }: { children: ReactNode }) {
           </Link>
         ) : (
           <button
-            className='bg-white text-sky-500 border border-transparent rounded-md px-2 py-1 hover:bg-slate-100'
+            className='bg-white text-sky-500 border border-transparent rounded-md px-2 py-1 hover:bg-slate-100 flex items-center gap-x-1'
             onClick={() => router.push('/signin')}
           >
-            LOGIN
+            <span>LOGIN</span>
+            <LoginIcon className='h-5 w-5' />
           </button>
         )}
       </header>
