@@ -1,15 +1,14 @@
 import React, { ReactNode } from 'react';
-import { useSelector } from 'react-redux';
 import useAuth from '../hooks/useAuth';
-import { RootState } from '../stores';
 import { UserCircleIcon } from '@heroicons/react/solid';
 import { LoginIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import useUserSlice from '../slices/user/useUserSlice';
 
 export default function Layout({ children }: { children: ReactNode }) {
   useAuth();
-  const id = useSelector((state: RootState) => state.user.id);
+  const { user } = useUserSlice();
   const router = useRouter();
   return (
     <div className='flex flex-col min-h-screen'>
@@ -17,7 +16,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <Link href='/'>
           <h1 className='cursor-pointer'>STUBRO</h1>
         </Link>
-        {id ? (
+        {user.id ? (
           <Link href='/my-page'>
             <UserCircleIcon className='h-7 w-7 cursor-pointer' />
           </Link>
