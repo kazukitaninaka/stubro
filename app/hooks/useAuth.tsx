@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import '../utils/firebase';
+import '../firebase';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import useUserSlice from '../slices/user/useUserSlice';
 
