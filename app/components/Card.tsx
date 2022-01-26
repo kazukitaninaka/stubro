@@ -1,19 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import { TagIcon } from '@heroicons/react/solid';
-
-const mnt = {
-  id: 1,
-  username: 'Kazuki',
-  email: 'kazuki@gmail.com',
-  image: 'https://placehold.jp/150x150.png',
-  clickCount: 0,
-  destination: 'アメリカ',
-  eduOrg: 'Reading High School',
-  term: '半年〜1年',
-  type: ['高校留学', '交換留学', 'ホストファミリー'],
-  price: 100,
-};
-type Mentor = typeof mnt;
+import { Mentor } from '../api';
 
 export default function Card({
   mentor,

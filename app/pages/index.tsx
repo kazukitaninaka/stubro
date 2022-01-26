@@ -1,60 +1,11 @@
 import { useState } from 'react';
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Card from '../components/Card';
 import ConfirmModal from '../components/ConfirmModal';
+import { MentorApi, Mentor } from '../api/api';
+import axios from 'axios';
 
-const Home: NextPage = () => {
-  const mentors = [
-    {
-      id: 1,
-      username: 'Kazuki',
-      email: 'kazuki@gmail.com',
-      image: 'https://placehold.jp/150x150.png',
-      clickCount: 0,
-      destination: 'アメリカ',
-      eduOrg: 'Reading High School',
-      term: '半年〜1年',
-      type: ['高校留学', '交換留学', 'ホストファミリー'],
-      price: 100,
-    },
-    {
-      id: 2,
-      username: 'Taka',
-      email: 'taka@gmail.com',
-      image: 'https://placehold.jp/150x150.png',
-      clickCount: 0,
-      destination: 'イギリス',
-      eduOrg: 'University of London',
-      term: '4年',
-      type: ['大学留学', '寮', '奨学金利用'],
-      price: 1000,
-    },
-    {
-      id: 3,
-      username: 'Taka',
-      email: 'taka@gmail.com',
-      image: 'https://placehold.jp/150x150.png',
-      clickCount: 0,
-      destination: 'イギリス',
-      eduOrg: 'University of London',
-      term: '4年',
-      type: ['大学留学', '寮', '奨学金利用'],
-      price: 1000,
-    },
-    {
-      id: 4,
-      username: 'Taka',
-      email: 'taka@gmail.com',
-      image: 'https://placehold.jp/150x150.png',
-      clickCount: 0,
-      destination: 'イギリス',
-      eduOrg: 'University of London',
-      term: '4年',
-      type: ['大学留学', '寮', '奨学金利用'],
-      price: 1000,
-    },
-  ];
-
+const Home = ({ mentors }: { mentors: Mentor[] }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   return (
@@ -70,3 +21,15 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export async function getServerSideProps() {
+  // const api = new MentorApi();
+  const mockUrl = 'http://127.0.0.1:3001/mentors';
+  const res = await axios.get(mockUrl);
+  const mentors = res.data;
+  return {
+    props: {
+      mentors,
+    },
+  };
+}
