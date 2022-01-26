@@ -10,7 +10,7 @@ export default function Card({
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }) {
   return (
-    <div className='w-full md:w-[48%] lg:w-[30%] border border-transparent rounded-md divide-y divide-dashed shadow-md bg-white'>
+    <div className='h-full w-full md:w-[48%] lg:w-[30%] border border-transparent rounded-md divide-y divide-dashed shadow-md bg-white'>
       <div className='p-3'>
         <table className='table-fixed'>
           <tbody>
