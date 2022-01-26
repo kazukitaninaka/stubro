@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type User = {
   id: string | null;
@@ -8,11 +8,11 @@ export type User = {
 
 const initialState: User = {
   id: null,
-  email: "",
+  email: '',
 };
 
 const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState,
   reducers: {
     setUser: (_, action: PayloadAction<User>) => {

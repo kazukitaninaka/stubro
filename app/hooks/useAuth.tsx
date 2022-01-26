@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import "../utils/firebase";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import useUserSlice from "../slices/user/useUserSlice";
+import { useEffect } from 'react';
+import '../utils/firebase';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import useUserSlice from '../slices/user/useUserSlice';
 
 export default function useAuth() {
   const { setUser } = useUserSlice();

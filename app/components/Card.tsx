@@ -1,16 +1,16 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { TagIcon } from "@heroicons/react/solid";
+import React, { Dispatch, SetStateAction } from 'react';
+import { TagIcon } from '@heroicons/react/solid';
 
 const mnt = {
   id: 1,
-  username: "Kazuki",
-  email: "kazuki@gmail.com",
-  image: "https://placehold.jp/150x150.png",
+  username: 'Kazuki',
+  email: 'kazuki@gmail.com',
+  image: 'https://placehold.jp/150x150.png',
   clickCount: 0,
-  destination: "アメリカ",
-  eduOrg: "Reading High School",
-  term: "半年〜1年",
-  type: ["高校留学", "交換留学", "ホストファミリー"],
+  destination: 'アメリカ',
+  eduOrg: 'Reading High School',
+  term: '半年〜1年',
+  type: ['高校留学', '交換留学', 'ホストファミリー'],
   price: 100,
 };
 type Mentor = typeof mnt;
@@ -23,55 +23,55 @@ export default function Card({
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }) {
   return (
-    <div className="w-full md:w-[48%] lg:w-[30%] border border-transparent rounded-md divide-y divide-dashed shadow-md bg-white">
-      <div className="p-3">
-        <table className="table-fixed">
+    <div className='w-full md:w-[48%] lg:w-[30%] border border-transparent rounded-md divide-y divide-dashed shadow-md bg-white'>
+      <div className='p-3'>
+        <table className='table-fixed'>
           <tbody>
             <tr>
-              <td className="w-1/3 font-bold">留学先国</td>
-              <td className="text-lg">{mentor.destination}</td>
+              <td className='w-1/3 font-bold'>留学先国</td>
+              <td className='text-lg'>{mentor.destination}</td>
             </tr>
             <tr>
-              <td className="font-bold">教育機関名</td>
-              <td className="text-lg">{mentor.eduOrg}</td>
+              <td className='font-bold'>教育機関名</td>
+              <td className='text-lg'>{mentor.eduOrg}</td>
             </tr>
             <tr>
-              <td className="font-bold">留学形態</td>
-              <td className="flex flex-wrap gap-x-2 gap-y-0.5">
+              <td className='font-bold'>留学形態</td>
+              <td className='flex flex-wrap gap-x-2 gap-y-0.5'>
                 {mentor.type.map((tag) => (
                   <span
                     key={tag}
-                    className="flex items-center border-2 border-gray-500 rounded-full px-1.5"
+                    className='flex items-center border-2 border-gray-500 rounded-full px-1.5'
                   >
-                    <TagIcon className="h-4 w-4" />
+                    <TagIcon className='h-4 w-4' />
                     <span>{tag}</span>
                   </span>
                 ))}
               </td>
             </tr>
             <tr>
-              <td className="font-bold">留学期間</td>
-              <td className="text-lg">{mentor.term}</td>
+              <td className='font-bold'>留学期間</td>
+              <td className='text-lg'>{mentor.term}</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div className="p-3 flex items-center justify-between">
-        <div className="flex items-center gap-x-5">
+      <div className='p-3 flex items-center justify-between'>
+        <div className='flex items-center gap-x-5'>
           <img
             src={mentor.image}
-            alt="profile picture"
-            className="w-12 h-12 inline object-cover rounded-full"
+            alt='profile picture'
+            className='w-12 h-12 inline object-cover rounded-full'
           />
-          <div className="text-xl">{mentor.username}</div>
+          <div className='text-xl'>{mentor.username}</div>
         </div>
-        <div className="text-sm">
-          相談料: <span className="text-lg">{mentor.price}</span>円 / 回
+        <div className='text-sm'>
+          相談料: <span className='text-lg'>{mentor.price}</span>円 / 回
         </div>
       </div>
-      <div className="p-3 flex justify-center">
+      <div className='p-3 flex justify-center'>
         <button
-          className="bg-sky-500 text-white py-2 px-3 rounded-full"
+          className='bg-sky-500 text-white py-2 px-3 rounded-full'
           onClick={() => setIsModalOpen(true)}
         >
           相談してみる

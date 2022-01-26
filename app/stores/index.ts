@@ -1,10 +1,7 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import {
-  useSelector as rawUseSelector,
-  TypedUseSelectorHook,
-} from "react-redux";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { useSelector as rawUseSelector, TypedUseSelectorHook } from 'react-redux';
 
-import user from "../slices/user/user";
+import user from '../slices/user/user';
 
 const rootReducer = combineReducers({
   user: user.reducer,

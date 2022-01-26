@@ -1,6 +1,6 @@
-import { useDispatch } from "react-redux";
-import { useSelector } from "../../stores";
-import { actions, User } from "./user";
+import { useDispatch } from 'react-redux';
+import { useSelector } from '../../stores';
+import { actions, User } from './user';
 
 export default function useUserSlice() {
   const dispatch = useDispatch();
