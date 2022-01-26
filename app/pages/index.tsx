@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { GetServerSideProps, NextPage } from 'next';
+import type { NextPage } from 'next';
 import Card from '../components/Card';
 import ConfirmModal from '../components/ConfirmModal';
 import { MentorApi, Mentor } from '../api/api';

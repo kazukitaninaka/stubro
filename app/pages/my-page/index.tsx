@@ -12,7 +12,7 @@ export default function MyPage() {
     signOut(auth)
       .then(() => {
         setUserInitial();
-        router.push('/signin');
+        router.push('/login');
       })
       .catch((e) => {
         console.log(e);

@@ -87,7 +87,7 @@ export default function ConfirmModal({
                     className='inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-sky-500 border border-transparent rounded-md hover:bg-sky-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
                     onClick={() => {
                       setIsModalOpen(false);
-                      router.push('/signin');
+                      router.push('/login');
                     }}
                   >
                     ログイン画面へ

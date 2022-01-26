@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         ) : (
           <button
             className='bg-white text-sky-500 border border-transparent rounded-md px-2 py-1 hover:bg-slate-100 flex items-center gap-x-1'
-            onClick={() => router.push('/signin')}
+            onClick={() => router.push('/login')}
           >
             <span>LOGIN</span>
             <LoginIcon className='h-5 w-5' />
