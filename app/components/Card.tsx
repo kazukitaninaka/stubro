@@ -1,6 +1,7 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
 import { TagIcon } from '@heroicons/react/solid';
 import { Mentor } from '../api';
+import useConsultationDetailsSlice from '../slices/consultationDetails/useConsultationDetailsSlice';
 
 export default function Card({
   mentor,
@@ -9,6 +10,7 @@ export default function Card({
   mentor: Mentor;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }) {
+  const { setMentor } = useConsultationDetailsSlice();
   return (
     <div className='h-full w-full md:w-[48%] lg:w-[30%] border border-transparent rounded-md divide-y divide-dashed shadow-md bg-white'>
       <div className='p-3'>
@@ -59,7 +61,14 @@ export default function Card({
       <div className='p-3 flex justify-center'>
         <button
           className='bg-sky-500 text-white py-2 px-3 rounded-full hover:bg-sky-600'
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => {
+            setIsModalOpen(true);
+            setMentor({
+              id: mentor.id,
+              username: mentor.username,
+              price: mentor.price,
+            });
+          }}
         >
           相談してみる
         </button>
