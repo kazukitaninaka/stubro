@@ -11,7 +11,7 @@ PAYPAY.Configure({
 });
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { amount, userAgent } = req.body.body; // todo: body.bodyが気持ち悪いのでなおしたい
+  const { amount, mentor, userAgent } = req.body.body; // todo: body.bodyが気持ち悪いのでなおしたい
 
   const merchantPaymentId = uuidv4();
   const payload = {
@@ -21,7 +21,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       currency: 'JPY',
     },
     codeType: 'ORDER_QR',
-    orderDescription: "Mune's Favourite Cake",
+    orderDescription: `${mentor}さんとの面談の料金`,
     isAuthorization: false,
     redirectUrl: 'http://localhost:3000/payment-completed',
     redirectType: 'WEB_LINK',

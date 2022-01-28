@@ -29,6 +29,7 @@ export default function ConfirmModal({
         method: 'POST',
         body: {
           amount: consultationDetails.price,
+          mentor: consultationDetails.username,
           userAgent: navigator.userAgent, // PayPayアプリで決済終了後自動でリダイレクトさせるためUserAgentをPayPay側に送る
         },
         headers: { 'Content-Type': 'application/json' },
