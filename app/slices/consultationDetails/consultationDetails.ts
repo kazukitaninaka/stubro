@@ -32,7 +32,7 @@ const consultationDetailsSlice = createSlice({
       const { id, username } = action.payload;
       return { id, username, desirableDate: '', comments: '' };
     },
-    setUserInput: (state, action: PayloadAction<userInput>) => {
+    setUserInput: (state, action: PayloadAction<UserInput>) => {
       const { desirableDate, comments } = action.payload;
       return { id: state.id, username: state.username, desirableDate, comments };
     },
