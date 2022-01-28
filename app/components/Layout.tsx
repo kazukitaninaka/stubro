@@ -8,7 +8,7 @@ import useUserSlice from '../slices/user/useUserSlice';
 
 export default function Layout({ children }: { children: ReactNode }) {
   useAuth();
-  const { user } = useUserSlice();
+  const { isUserLoggedIn } = useUserSlice();
   const router = useRouter();
   return (
     <div className='flex flex-col min-h-screen'>
@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <Link href='/'>
           <h1 className='cursor-pointer'>STUBRO</h1>
         </Link>
-        {user.id ? (
+        {isUserLoggedIn ? (
           <Link href='/my-page'>
             <UserCircleIcon className='h-7 w-7 cursor-pointer' />
           </Link>

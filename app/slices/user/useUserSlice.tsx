@@ -7,6 +7,8 @@ export default function useUserSlice() {
 
   const user = useSelector((state) => state.user);
 
+  const isUserLoggedIn = !!user.id;
+
   function setUser(user: User) {
     dispatch(actions.setUser(user));
   }
@@ -14,5 +16,5 @@ export default function useUserSlice() {
   function setUserInitial() {
     dispatch(actions.setUserInitial());
   }
-  return { user, setUser, setUserInitial };
+  return { isUserLoggedIn, user, setUser, setUserInitial };
 }

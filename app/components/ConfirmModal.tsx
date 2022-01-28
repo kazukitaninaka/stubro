@@ -11,7 +11,7 @@ export default function ConfirmModal({
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { user } = useUserSlice();
+  const { isUserLoggedIn } = useUserSlice();
   const router = useRouter();
 
   const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -57,7 +57,7 @@ export default function ConfirmModal({
             &#8203;
           </span>
           {/* change modal content conditionally depending on if id exists, meaning user is logged in */}
-          {user.id ? (
+          {isUserLoggedIn ? (
             <Transition.Child
               as={React.Fragment}
               enter='ease-out duration-300'
