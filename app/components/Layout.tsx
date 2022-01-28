@@ -17,9 +17,10 @@ export default function Layout({ children }: { children: ReactNode }) {
           <h1 className='cursor-pointer'>STUBRO</h1>
         </Link>
         {isUserLoggedIn ? (
-          <Link href='/my-page'>
-            <UserCircleIcon className='h-7 w-7 cursor-pointer' />
-          </Link>
+          <UserCircleIcon
+            className='h-7 w-7 cursor-pointer'
+            onClick={() => router.push('/my-page')}
+          />
         ) : (
           <button
             className='bg-white text-sky-500 border border-transparent rounded-md px-2 py-1 hover:bg-slate-100 flex items-center gap-x-1'
