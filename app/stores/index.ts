@@ -26,6 +26,10 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: persistReducer(rootPersistConfig, rootReducer),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false, // Non-serializable value errorをなくす
+    }),
 });
 
 export const persistor = persistStore(store);
