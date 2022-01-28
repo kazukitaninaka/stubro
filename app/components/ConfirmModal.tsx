@@ -27,15 +27,18 @@ export default function ConfirmModal({
     axios
       .post('http://localhost:3000/api/paypay', {
         method: 'POST',
-        body: JSON.stringify({
+        body: {
           amount: consultationDetails.price,
-          userAgent: navigator.userAgent, // PayPayアプリで決済終了後自動でリダイレクトさせるため
-        }),
+          userAgent: navigator.userAgent, // PayPayアプリで決済終了後自動でリダイレクトさせるためUserAgentをPayPay側に送る
+        },
         headers: { 'Content-Type': 'application/json' },
       })
       .then((res) => {
         const { data } = res.data;
         router.push(data.url);
+      })
+      .catch((e) => {
+        console.log(e);
       });
   };
 

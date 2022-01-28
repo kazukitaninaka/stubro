@@ -11,12 +11,13 @@ PAYPAY.Configure({
 });
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const userAgent = req.body.userAgent;
+  const { amount, userAgent } = req.body.body; // todo: body.bodyが気持ち悪いのでなおしたい
+
   const merchantPaymentId = uuidv4();
   const payload = {
     merchantPaymentId,
     amount: {
-      amount: 1,
+      amount,
       currency: 'JPY',
     },
     codeType: 'ORDER_QR',
@@ -27,10 +28,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     userAgent,
   };
   // 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1'
-  // Calling the method to create a qr code
+
   PAYPAY.QRCodeCreate(payload, (response) => {
     console.log(response);
-    // Printing if the method call was SUCCESS
     res.status(201).json(JSON.parse((response as HttpsClientSuccess).BODY));
   });
 }
