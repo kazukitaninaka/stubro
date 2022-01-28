@@ -10,8 +10,9 @@ PAYPAY.Configure({
 });
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
+  const userAgent = req.body.userAgent;
   const merchantPaymentId = uuidv4();
-  let payload = {
+  const payload = {
     merchantPaymentId,
     amount: {
       amount: 1,
@@ -22,8 +23,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     isAuthorization: false,
     redirectUrl: 'http://localhost:3000/',
     redirectType: 'WEB_LINK',
-    userAgent:
-      'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) CriOS/56.0.2924.75 Mobile/14E5239e Safari/602.1',
+    userAgent,
   };
   // Calling the method to create a qr code
   PAYPAY.QRCodeCreate(payload, (response) => {
