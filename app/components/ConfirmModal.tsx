@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { useState, Dispatch, SetStateAction } from 'react';
+import axios from 'axios';
 import { Transition, Dialog } from '@headlessui/react';
 import useUserSlice from '../slices/user/useUserSlice';
 import { useRouter } from 'next/router';
@@ -12,6 +13,25 @@ export default function ConfirmModal({
 }) {
   const { user } = useUserSlice();
   const router = useRouter();
+
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    axios
+      .post('http://localhost:3000/api/paypay', {
+        method: 'POST',
+        // body: JSON.stringify({
+        //   amount: amount,
+        //   orderDescription: "Test Payment" // 場合によってはここも動的に変更すると良いかも
+        // }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+      .then((res) => {
+        const { data } = res.data;
+        router.push(data.url);
+      });
+  };
+
   return (
     <Transition appear show={isModalOpen} as={React.Fragment}>
       <Dialog
@@ -64,7 +84,9 @@ export default function ConfirmModal({
                   <button
                     type='button'
                     className='inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-sky-500 border border-transparent rounded-md hover:bg-sky-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
-                    onClick={() => setIsModalOpen(false)}
+                    onClick={(e) => {
+                      handleSubmit(e);
+                    }}
                   >
                     決済画面へ
                   </button>
