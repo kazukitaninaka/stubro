@@ -19,7 +19,7 @@ export default function ConfirmModal({
   const { consultationDetails, setUserInput, setConsultationDetailsInitial } =
     useConsultationDetailsSlice();
 
-  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // put user input in persisted state because it will redirect user to payment page
     setUserInput({ desirableDate, comments });
@@ -86,7 +86,10 @@ export default function ConfirmModal({
               leaveFrom='opacity-100 scale-100'
               leaveTo='opacity-0 scale-95'
             >
-              <div className='inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-md'>
+              <form
+                onSubmit={handleSubmit}
+                className='inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-md'
+              >
                 <Dialog.Title as='h3' className='text-lg text-center font-medium'>
                   {consultationDetails.username}さんと面談しましょう！
                 </Dialog.Title>
@@ -107,17 +110,14 @@ export default function ConfirmModal({
                 ></textarea>
                 <div className='mt-4 text-center'>
                   <button
-                    type='button'
+                    type='submit'
                     className='inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-sky-500 border border-transparent rounded-md hover:bg-sky-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500'
-                    onClick={(e) => {
-                      handleSubmit(e);
-                    }}
                   >
                     決済画面へ
                   </button>
                 </div>
                 <small>※PayPayの決済画面へ移動します。クリックしてもまだ決済は完了しません。</small>
-              </div>
+              </form>
             </Transition.Child>
           ) : (
             <Transition.Child
