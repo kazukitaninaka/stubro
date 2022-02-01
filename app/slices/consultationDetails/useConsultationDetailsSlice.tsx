@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from '../../stores';
 import { actions, Mentor, UserInput } from './consultationDetails';
@@ -7,16 +8,17 @@ export default function useConsultationDetailsSlice() {
 
   const consultationDetails = useSelector((state) => state.consultationDetails);
 
-  function setMentor(mentor: Mentor) {
+  const setMentor = useCallback((mentor: Mentor) => {
     dispatch(actions.setMentor(mentor));
-  }
+  }, []);
 
-  function setUserInput(userInput: UserInput) {
+  const setUserInput = useCallback((userInput: UserInput) => {
     dispatch(actions.setUserInput(userInput));
-  }
+  }, []);
 
-  function setConsultationDetailsInitial() {
+  const setConsultationDetailsInitial = useCallback(() => {
     dispatch(actions.setConsultationDetailsInitial());
-  }
+  }, []);
+
   return { consultationDetails, setMentor, setUserInput, setConsultationDetailsInitial };
 }
