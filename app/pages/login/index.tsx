@@ -96,14 +96,14 @@ export default function SingIn() {
       <form className='mt-8 space-y-6' action='#' method='POST' onSubmit={loginViaGoogle}>
         <button
           type='submit'
-          className='group relative w-full flex justify-center border-2 text-sm font-medium rounded-md bg-white'
+          className='relative flex w-full shadow-sm items-center font-medium rounded-md bg-white py-2 border border-gray-300 hover:border-[#4285F4]'
         >
-          <img src='btn_google_light_normal_ios.svg' className='h-10 w-10' />
-          Log in with Google
+          <img src='g-logo.png' className='absolute h-7 w-7 left-2' alt='Google Icon' />
+          <span className='mx-auto text-center'>Sign in with Google</span>
         </button>
       </form>
 
-      <div>
+      <div className='mt-2'>
         アカウントをお持ちでない場合
         <span className='text-sky-500 ml-2'>
           <Link href='/signup'>新規登録</Link>
