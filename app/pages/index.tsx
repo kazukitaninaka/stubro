@@ -10,7 +10,7 @@ const Home = ({ mentors }: { mentors: Mentor[] }) => {
 
   return (
     <div>
-      <div className='flex flex-wrap gap-5 justify-evenly'>
+      <div className='flex flex-wrap gap-5'>
         {mentors.map((mentor) => (
           <Card key={mentor.id} mentor={mentor} setIsModalOpen={setIsModalOpen} />
         ))}
