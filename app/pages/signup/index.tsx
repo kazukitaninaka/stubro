@@ -4,6 +4,7 @@ import useUserSlice from '../../slices/user/useUserSlice';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
+import ContainerSm from '../../components/ContainerSm';
 
 export default function SignUp() {
   const [email, setEmail] = useState('');
@@ -32,7 +33,7 @@ export default function SignUp() {
       });
   }
   return (
-    <div className='max-w-screen-sm mx-auto'>
+    <ContainerSm>
       <h2 className='text-center text-2xl text-zinc-500 font-bold mt-10'>新規登録</h2>
       <form className='mt-8 space-y-6' action='#' method='POST' onSubmit={createUser}>
         <input type='hidden' name='remember' defaultValue='true' />
@@ -76,6 +77,6 @@ export default function SignUp() {
           </span>
         </div>
       </form>
-    </div>
+    </ContainerSm>
   );
 }

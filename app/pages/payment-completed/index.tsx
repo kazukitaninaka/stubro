@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { CheckCircleIcon } from '@heroicons/react/solid';
 import useConsultationDetailsSlice from '../../slices/consultationDetails/useConsultationDetailsSlice';
+import ContainerSm from '../../components/ContainerSm';
 
 export default function PaymentCompleted() {
   const { consultationDetails, setConsultationDetailsInitial } = useConsultationDetailsSlice();
@@ -11,7 +12,7 @@ export default function PaymentCompleted() {
     };
   }, []);
   return (
-    <div className='max-w-[650px] mx-auto'>
+    <ContainerSm>
       <CheckCircleIcon className='h-48 w-48 text-green-500 mx-auto' />
       <p className='text-center text-4xl mb-5'>Payment completed!</p>
       <p className='text-center text-xl mb-3'>お申し込み内容</p>
@@ -34,6 +35,6 @@ export default function PaymentCompleted() {
       <p className='mt-5 text-lg'>
         メンターと日程を調整の上、決まり次第登録されたメールアドレスに日程とzoomリンクをお送りします。
       </p>
-    </div>
+    </ContainerSm>
   );
 }
