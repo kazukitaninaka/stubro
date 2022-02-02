@@ -10,6 +10,7 @@ import {
 import useUserSlice from '../../slices/user/useUserSlice';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 export default function SingIn() {
   const [email, setEmail] = useState('');
@@ -24,6 +25,11 @@ export default function SingIn() {
       .then((userCredential) => {
         const user = userCredential.user;
         setUser({ id: user.uid, email: user.email! });
+        toast.success('ログイン完了!', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
         router.push('/');
       })
       .catch((error) => {
@@ -41,6 +47,11 @@ export default function SingIn() {
       .then((result) => {
         const user = result.user;
         setUser({ id: user.uid, email: user.email! });
+        toast.success('ログイン完了!', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: true,
+        });
         router.push('/');
       })
       .catch((error) => {
