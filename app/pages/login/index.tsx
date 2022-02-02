@@ -14,8 +14,9 @@ import { toast } from 'react-toastify';
 import ContainerSm from '../../components/ContainerSm';
 
 export default function SingIn() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
   const { setUser } = useUserSlice();
   const router = useRouter();
 
