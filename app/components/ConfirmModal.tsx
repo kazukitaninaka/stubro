@@ -25,7 +25,7 @@ export default function ConfirmModal({
     setUserInput({ desirableDate, comments });
 
     axios
-      .post('http://localhost:3000/api/paypay', {
+      .post('/api/paypay', {
         method: 'POST',
         body: {
           amount: consultationDetails.price,
