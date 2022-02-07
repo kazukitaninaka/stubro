@@ -26,10 +26,12 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: persistReducer(rootPersistConfig, rootReducer),
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false, // Non-serializable value errorをなくす
-    }),
+  // 要検証
+  // non-serializable value errorがなくなるかわりに、RootStateがanyになってステートの補完が効かなくなる
+  // middleware: (getDefaultMiddleware) =>
+  //   getDefaultMiddleware({
+  //     serializableCheck: false, // Non-serializable value errorをなくす
+  //   }),
 });
 
 export const persistor = persistStore(store);
