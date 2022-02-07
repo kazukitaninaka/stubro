@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { NextPage } from 'next';
 import Card from '../components/Card';
 import ConfirmModal from '../components/ConfirmModal';
-import { MentorApi, Mentor } from '../api/api';
+import { MentorApi, Mentor, Configuration } from '../api';
 import axios from 'axios';
 
 const Home = ({ mentors }: { mentors: Mentor[] }) => {
@@ -23,9 +23,10 @@ const Home = ({ mentors }: { mentors: Mentor[] }) => {
 export default Home;
 
 export async function getServerSideProps() {
-  // const api = new MentorApi();
-  const mockUrl = 'http://127.0.0.1:3001/mentors';
-  const res = await axios.get(mockUrl);
+  const api = new MentorApi();
+  // const mockUrl = 'http://localhost:8080/mentors';
+  // const res = await axios.get(mockUrl);
+  const res = await api.getMentors();
   const mentors = res.data;
   return {
     props: {
