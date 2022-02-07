@@ -1,41 +1,13 @@
-import { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import useUserSlice from '../../slices/user/useUserSlice';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { toast } from 'react-toastify';
 import ContainerSm from '../../components/ContainerSm';
+import useEntry from '../../hooks/useEntry';
 
 export default function SignUp() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { setUser } = useUserSlice();
-  const router = useRouter();
-
-  function createUser(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setUser({ id: user.uid, email: user.email! });
-        toast.success('ログイン完了!', {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-          hideProgressBar: true,
-        });
-        router.push('/');
-      })
-      .catch((error) => {
-        console.log(error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  }
+  const { setEmail, setPassword, signup, isSigning } = useEntry();
   return (
     <ContainerSm>
       <h2 className='text-center text-2xl text-zinc-500 font-bold mt-10'>新規登録</h2>
-      <form className='mt-8 space-y-6' action='#' method='POST' onSubmit={createUser}>
+      <form className='mt-8 space-y-6' action='#' method='POST' onSubmit={signup}>
         <input type='hidden' name='remember' defaultValue='true' />
         <div className='rounded-md shadow-sm -space-y-px'>
           <div>
@@ -66,8 +38,9 @@ export default function SignUp() {
           <button
             type='submit'
             className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500'
+            disabled={isSigning}
           >
-            Sign up
+            {isSigning ? 'Signing up...' : 'Sign up'}
           </button>
         </div>
         <div>

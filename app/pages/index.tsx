@@ -24,9 +24,9 @@ export default Home;
 
 export async function getServerSideProps() {
   const api = new MentorApi();
-  // const mockUrl = 'http://localhost:8080/mentors';
-  // const res = await axios.get(mockUrl);
-  const res = await api.getMentors();
+  const mockUrl = 'http://localhost:3001/mentors';
+  const res = await axios.get(mockUrl);
+  // const res = await api.getMentors();
   const mentors = res.data;
   return {
     props: {

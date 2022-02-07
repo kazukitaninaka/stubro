@@ -1,67 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../firebase';
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from 'firebase/auth';
-import useUserSlice from '../../slices/user/useUserSlice';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { toast } from 'react-toastify';
+
 import ContainerSm from '../../components/ContainerSm';
+import useEntry from '../../hooks/useEntry';
 
 export default function SingIn() {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-
-  const { setUser } = useUserSlice();
-  const router = useRouter();
-
-  function login(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        setUser({ id: user.uid, email: user.email! });
-        toast.success('ログイン完了!', {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-          hideProgressBar: true,
-        });
-        router.push('/');
-      })
-      .catch((error) => {
-        console.log(error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  }
-
-  function loginViaGoogle(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const user = result.user;
-        setUser({ id: user.uid, email: user.email! });
-        toast.success('ログイン完了!', {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-          hideProgressBar: true,
-        });
-        router.push('/');
-      })
-      .catch((error) => {
-        console.log(error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
-  }
+  const { setEmail, setPassword, login, loginViaGoogle, isSigning } = useEntry();
 
   return (
     <ContainerSm>
@@ -98,8 +43,9 @@ export default function SingIn() {
           <button
             type='submit'
             className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500'
+            disabled={isSigning}
           >
-            Log in
+            {isSigning ? 'Logging in...' : 'Log in'}
           </button>
         </div>
       </form>
