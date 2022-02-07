@@ -42,7 +42,6 @@ export default function useEntry() {
   }
 
   function loginViaGoogle(e: React.FormEvent<HTMLFormElement>) {
-    setIsSigning(true);
     e.preventDefault();
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
@@ -55,14 +54,12 @@ export default function useEntry() {
           autoClose: 3000,
           hideProgressBar: true,
         });
-        setIsSigning(false);
         router.push('/');
       })
       .catch((error) => {
         console.log(error);
         const errorCode = error.code;
         const errorMessage = error.message;
-        setIsSigning(false);
       });
   }
 
