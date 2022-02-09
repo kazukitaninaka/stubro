@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import type { NextPage } from 'next';
 import Card from '../components/Card';
 import ConfirmModal from '../components/ConfirmModal';
-import { MentorApi, Mentor, Configuration } from '../api';
-import axios from 'axios';
+import { MentorApi, Mentor } from '../api';
 
 const Home = ({ mentors }: { mentors: Mentor[] }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
