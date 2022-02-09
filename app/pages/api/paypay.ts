@@ -11,7 +11,7 @@ PAYPAY.Configure({
 });
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { amount, mentor, userAgent } = req.body.body; // todo: body.bodyが気持ち悪いのでなおしたい
+  const { amount, mentor, userAgent } = req.body;
 
   const merchantPaymentId = uuidv4();
   const payload = {
