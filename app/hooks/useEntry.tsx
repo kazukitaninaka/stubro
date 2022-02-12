@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   getAuth,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
-  updateProfile
+  updateProfile,
+  User
 } from 'firebase/auth';
 import useUserSlice from '../slices/user/useUserSlice';
 import { toast } from 'react-toastify';
@@ -21,6 +22,23 @@ export default function useEntry() {
   const { setUser } = useUserSlice();
   const router = useRouter();
 
+  function showLoginSucceededModal() {
+    toast.success('ログイン完了!', {
+      position: toast.POSITION.TOP_RIGHT,
+      autoClose: 3000,
+      hideProgressBar: true,
+    });
+  }
+
+  function sendUserToBackend(user: User) {
+    const api = new UserApi()
+    // if user signs in with google, username must be user.displayName
+    const name = username ? username : user.displayName!
+    api.postUser({ uid: user.uid, email: user.email!, username: name }).catch(() => {
+      setIsError(true)
+    })
+  }
+
   function login(e: React.FormEvent<HTMLFormElement>) {
     setIsSigning(true);
     e.preventDefault();
@@ -29,18 +47,15 @@ export default function useEntry() {
       .then((userCredential) => {
         const user = userCredential.user;
         setUser({ id: user.uid, email: user.email!, username: user.displayName! });
-        toast.success('ログイン完了!', {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-          hideProgressBar: true,
-        });
+
+        showLoginSucceededModal()
+
         setIsSigning(false);
         router.push('/');
       })
       .catch((error) => {
         console.log(error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        setIsError(true)
         setIsSigning(false);
       });
   }
@@ -53,17 +68,17 @@ export default function useEntry() {
       .then((result) => {
         const user = result.user;
         setUser({ id: user.uid, email: user.email!, username: user.displayName! });
-        toast.success('ログイン完了!', {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-          hideProgressBar: true,
-        });
+
+        // in case it is the first time for the user to use this app
+        sendUserToBackend(user)
+
+        showLoginSucceededModal()
+
         router.push('/');
       })
       .catch((error) => {
         console.log(error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        setIsError(true)
       });
   }
 
@@ -74,23 +89,26 @@ export default function useEntry() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+
         updateProfile(user, {
           // set displayName to username, which user input
           displayName: username
         })
+
+        sendUserToBackend(user)
+
         setUser({ id: user.uid, email: user.email!, username });
-        toast.success('ログイン完了!', {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-          hideProgressBar: true,
-        });
+
+        showLoginSucceededModal()
+
         setIsSigning(false);
+
+        // transfer user to root after login
         router.push('/');
       })
       .catch((error) => {
         console.log(error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        setIsError(true)
         setIsSigning(false);
       });
   }
