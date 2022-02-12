@@ -20,7 +20,7 @@ export default function SignUp() {
           </button>
         </div>
       </form> */}
-      {renderEntry("signup")}
+      {renderEntry('signup')}
       <div>
         すでにアカウントをお持ちの場合
         <span className='text-sky-500 ml-2'>

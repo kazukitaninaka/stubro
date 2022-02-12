@@ -11,7 +11,7 @@ export default function SingIn() {
   return (
     <ContainerSm>
       <h2 className='text-center text-2xl text-zinc-500 font-bold'>ログイン</h2>
-      {renderEntry("login")}
+      {renderEntry('login')}
       <div className='flex items-center my-5 before:content-[""] before:h-[1px] before:grow before:bg-gray-300 before:mr-5 after:content-[""] after:h-[1px] after:grow after:bg-gray-300 after:ml-5'>
         または
       </div>

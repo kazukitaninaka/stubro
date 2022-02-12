@@ -89,18 +89,15 @@ export default function useEntry() {
       });
   }
 
-  const loadingDots = React.memo(() => (
-    <div className="flex justify-center">
-      <div className="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
-      <div className="animate-ping h-2 w-2 bg-blue-600 rounded-full mx-4"></div>
-      <div className="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
-    </div>
-  ))
-
-  const renderEntry = (type: "signup" | "login") => {
-    const isForSignup = type === "signup"
+  const renderEntry = (type: 'signup' | 'login') => {
+    const isForSignup = type === 'signup';
     return (
-      <form className='mt-8 space-y-6' action='#' method='POST' onSubmit={isForSignup ? signup : login}>
+      <form
+        className='mt-8 space-y-6'
+        action='#'
+        method='POST'
+        onSubmit={isForSignup ? signup : login}
+      >
         <input type='hidden' name='remember' defaultValue='true' />
         <div className='rounded-md shadow-sm -space-y-px flex flex-col'>
           <input
@@ -112,7 +109,7 @@ export default function useEntry() {
             placeholder='メールアドレス'
             onChange={(e) => setEmail(e.target.value)}
           />
-          {isForSignup &&
+          {isForSignup && (
             <input
               name='username'
               autoComplete='username'
@@ -121,7 +118,7 @@ export default function useEntry() {
               placeholder='ユーザー名'
               onChange={(e) => setUsername(e.target.value)}
             />
-          }
+          )}
           <input
             name='password'
             type='password'
@@ -138,11 +135,11 @@ export default function useEntry() {
             className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500'
             disabled={isSigning}
           >
-            {isSigning ? loadingDots : isForSignup ? 'Sign up' : 'Log in'}
+            {isSigning ? 'Loading...' : isForSignup ? 'Sign up' : 'Log in'}
           </button>
         </div>
       </form>
-    )
+    );
   };
 
   return { renderEntry, loginViaGoogle };
