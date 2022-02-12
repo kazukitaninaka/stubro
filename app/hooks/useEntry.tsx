@@ -9,10 +9,12 @@ import {
 import useUserSlice from '../slices/user/useUserSlice';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
+import { UserApi } from '../api';
 
 export default function useEntry() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [isSigning, setIsSigning] = useState<boolean>(false);
   const { setUser } = useUserSlice();
   const router = useRouter();
@@ -87,32 +89,61 @@ export default function useEntry() {
       });
   }
 
-  const renderInputFields = () => (
-    <div className='rounded-md shadow-sm -space-y-px'>
-      <div>
-        <input
-          name='email'
-          type='email'
-          autoComplete='email'
-          required
-          className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm'
-          placeholder='メールアドレス'
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          name='password'
-          type='password'
-          autoComplete='current-password'
-          required
-          className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm'
-          placeholder='パスワード'
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
+  const loadingDots = React.memo(() => (
+    <div className="flex justify-center">
+      <div className="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
+      <div className="animate-ping h-2 w-2 bg-blue-600 rounded-full mx-4"></div>
+      <div className="animate-ping h-2 w-2 bg-blue-600 rounded-full"></div>
     </div>
-  );
+  ))
 
-  return { renderInputFields, isSigning, signup, login, loginViaGoogle };
+  const renderEntry = (type: "signup" | "login") => {
+    const isForSignup = type === "signup"
+    return (
+      <form className='mt-8 space-y-6' action='#' method='POST' onSubmit={isForSignup ? signup : login}>
+        <input type='hidden' name='remember' defaultValue='true' />
+        <div className='rounded-md shadow-sm -space-y-px flex flex-col'>
+          <input
+            name='email'
+            type='email'
+            autoComplete='email'
+            required
+            className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm'
+            placeholder='メールアドレス'
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {isForSignup &&
+            <input
+              name='username'
+              autoComplete='username'
+              required
+              className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm'
+              placeholder='ユーザー名'
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          }
+          <input
+            name='password'
+            type='password'
+            autoComplete='current-password'
+            required
+            className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-sky-500 focus:border-sky-500 focus:z-10 sm:text-sm'
+            placeholder='パスワード'
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div>
+          <button
+            type='submit'
+            className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500'
+            disabled={isSigning}
+          >
+            {isSigning ? loadingDots : isForSignup ? 'Sign up' : 'Log in'}
+          </button>
+        </div>
+      </form>
+    )
+  };
+
+  return { renderEntry, loginViaGoogle };
 }

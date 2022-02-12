@@ -3,11 +3,11 @@ import ContainerSm from '../../components/ContainerSm';
 import useEntry from '../../hooks/useEntry';
 
 export default function SignUp() {
-  const { renderInputFields, signup, isSigning } = useEntry();
+  const { renderEntry } = useEntry();
   return (
     <ContainerSm>
       <h2 className='text-center text-2xl text-zinc-500 font-bold mt-10'>新規登録</h2>
-      <form className='mt-8 space-y-6' action='#' method='POST' onSubmit={signup}>
+      {/* <form className='mt-8 space-y-6' action='#' method='POST' onSubmit={signup}>
         <input type='hidden' name='remember' defaultValue='true' />
         {renderInputFields()}
         <div>
@@ -19,7 +19,8 @@ export default function SignUp() {
             {isSigning ? 'Signing up...' : 'Sign up'}
           </button>
         </div>
-      </form>
+      </form> */}
+      {renderEntry("signup")}
       <div>
         すでにアカウントをお持ちの場合
         <span className='text-sky-500 ml-2'>
