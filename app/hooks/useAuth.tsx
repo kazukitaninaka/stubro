@@ -12,7 +12,7 @@ export default function useAuth() {
     // if so set user to userSlice
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser({ id: user.uid, email: user.email! });
+        setUser({ id: user.uid, email: user.email!, username: user.displayName ?? 'hoge' });
       }
     });
   }, []);

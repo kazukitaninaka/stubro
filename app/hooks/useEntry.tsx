@@ -5,6 +5,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
+  updateProfile
 } from 'firebase/auth';
 import useUserSlice from '../slices/user/useUserSlice';
 import { toast } from 'react-toastify';
@@ -26,7 +27,7 @@ export default function useEntry() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        setUser({ id: user.uid, email: user.email! });
+        setUser({ id: user.uid, email: user.email!, username: user.displayName! });
         toast.success('ログイン完了!', {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
@@ -50,7 +51,7 @@ export default function useEntry() {
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
-        setUser({ id: user.uid, email: user.email! });
+        setUser({ id: user.uid, email: user.email!, username: user.displayName! });
         toast.success('ログイン完了!', {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
@@ -72,7 +73,11 @@ export default function useEntry() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        setUser({ id: user.uid, email: user.email! });
+        updateProfile(user, {
+          // set displayName to username, which user input
+          displayName: username
+        })
+        setUser({ id: user.uid, email: user.email!, username });
         toast.success('ログイン完了!', {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,

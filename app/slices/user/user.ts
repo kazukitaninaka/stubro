@@ -3,12 +3,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export type User = {
   id: string | null;
   email: string;
+  username: string;
   // 追加されるかも
 };
 
 const initialState: User = {
   id: null,
   email: '',
+  username: ''
 };
 
 const userSlice = createSlice({
@@ -19,6 +21,7 @@ const userSlice = createSlice({
       return {
         id: action.payload.id,
         email: action.payload.email,
+        username: action.payload.username
       };
     },
     setUserInitial: () => {
