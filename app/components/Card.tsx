@@ -29,18 +29,18 @@ export default function Card({
               <td className='flex flex-wrap gap-x-2 gap-y-0.5'>
                 {mentor.type.map((tag) => (
                   <span
-                    key={tag}
+                    key={tag.id}
                     className='flex items-center border-2 border-gray-500 rounded-full px-1.5'
                   >
                     <TagIcon className='h-4 w-4' />
-                    <span>{tag}</span>
+                    <span>{tag.name}</span>
                   </span>
                 ))}
               </td>
             </tr>
             <tr>
               <td className='font-bold'>留学期間</td>
-              <td className='text-lg'>{mentor.term}</td>
+              <td className='text-lg'>{mentor.term.name}</td>
             </tr>
           </tbody>
         </table>

@@ -1,0 +1,30 @@
+description: ""
+type: object
+properties:
+  id:
+    type: number
+  username:
+    type: string
+    minLength: 1
+  email:
+    type: string
+    minLength: 1
+  signUpDate:
+    type: string
+    minLength: 1
+required:
+  - id
+  - username
+  - email
+  - signUpDate
+x-examples:
+  example-1:
+    id: 142
+    username: Alice Smith
+    email: alice.smith@gmail.com
+    signUpDate: "2019-08-24"
+examples:
+  - id: 1
+    username: Emily
+    email: emily@gmail.com
+    signUpDate: "2022-01-05"

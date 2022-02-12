@@ -1,0 +1,14 @@
+{
+  "name": "api-docs",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "check-yml": "prettier --check 'api.yaml'",
+    "format-yml": "prettier --write 'api.yaml'",
+    "validate-schema": "openapi-generator-cli validate -i api.yaml",
+    "generate-client": "openapi-generator-cli generate -g typescript-axios -i api.yaml -o ../api --skip-validate-spec"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.4.26"
+  }
+}

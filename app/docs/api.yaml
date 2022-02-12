@@ -1,0 +1,524 @@
+openapi: '3.0,3'
+info:
+  title: api
+  version: '1.0'
+  description: ''
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /users:
+    get:
+      tags:
+        - user
+      summary: Get all users
+      operationId: get-users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ./models/User.yaml
+              examples:
+                example-1:
+                  value:
+                    - id: 1
+                      username: Emily
+                      email: emily@gmail.com
+                      signUpDate: '2022-01-05'
+                    - id: 2
+                      username: Tom
+                      email: tom@gmail.com
+                      signUpDate: '2022-01-15'
+      description: get all users
+  '/user/{userId}':
+    parameters:
+      - schema:
+          type: integer
+        name: userId
+        in: path
+        required: true
+        description: Id of an existing user.
+    get:
+      summary: Get User Info by User ID
+      tags:
+        - user
+      responses:
+        '200':
+          description: User Found
+          content:
+            application/json:
+              schema:
+                $ref: ./models/User.yaml
+              examples:
+                Get User Bob Fellow:
+                  value:
+                    id: 12345
+                    firstName: Bob Fellow
+                    email: bob.fellow@gmail.com
+        '404':
+          description: User Not Found
+      operationId: get-user-by-userId
+      description: Retrieve the information of the user with the matching user ID.
+    patch:
+      tags:
+        - user
+      summary: Update User Information
+      operationId: patch-users-userId
+      responses:
+        '200':
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                $ref: ./models/Mentor.yaml
+              examples:
+                Updated User Rebecca Baker:
+                  value:
+                    id: 13
+                    username: Rebecca
+                    email: rebecca@gmail.com
+                    singUpDate: '2019-08-24'
+        '404':
+          description: User Not Found
+        '409':
+          description: Email Already Taken
+      description: Update the information of an existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                  description: >-
+                    If a new email is given, the user's email verified property
+                    will be set to false.
+            examples:
+              Update username:
+                value:
+                  username: Rebecca
+              Update Email:
+                value:
+                  email: rebecca@gmail.com
+        description: Patch user properties to update.
+  /user:
+    post:
+      tags:
+        - user
+      summary: Create New User
+      operationId: post-user
+      responses:
+        '200':
+          description: User Created
+          content:
+            application/json:
+              schema:
+                $ref: ./models/User.yaml
+              examples:
+                New User Bob Fellow:
+                  value:
+                    id: 12345
+                    username: BobFellow
+                    email: bob.fellow@gmail.com
+                    signUpDate: '2020-11-18'
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Email Already Taken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+              required:
+                - username
+                - email
+            examples:
+              Create User Bob Fellow:
+                value:
+                  username: BobFellow
+                  email: bob.fellow@gmail.com
+        description: Post the necessary fields for the API to create a new user.
+      description: Create a new user.
+  /mentors:
+    get:
+      summary: Get all mentors
+      tags:
+        - mentor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ./models/Mentor.yaml
+              examples:
+                example-1:
+                  value:
+                    - id: 1
+                      username: Kazuki
+                      email: kazuki@gmail.com
+                      image: 'https://placehold.jp/150x150.png'
+                      clickCount: 0
+                      destination: アメリカ
+                      eduOrg: Reading High School
+                      term:
+                        id: 5
+                        name: 半年〜1年
+                      type:
+                        - id: 7
+                          name: 大学留学
+                        - id: 9
+                          name: 寮
+                        - id: 10
+                          name: 私費留学
+                      price: 100
+                    - id: 2
+                      CreatedAt: '2022-02-11T08:38:42.351Z'
+                      UpdatedAt: '2022-02-11T08:38:42.351Z'
+                      DeletedAt: null
+                      username: Eren
+                      email: eren@gmail.com
+                      image: 'https://placehold.jp/150x150.png'
+                      clickCount: 0
+                      destination: イギリス
+                      eduOrg: University of Oxford
+                      term:
+                        id: 8
+                        name: 4年
+                      type:
+                        - id: 7
+                          name: 大学留学
+                        - id: 9
+                          name: 寮
+                        - id: 10
+                          name: 私費留学
+                      price: 3000
+                    - id: 3
+                      CreatedAt: '2022-02-11T08:38:42.353Z'
+                      UpdatedAt: '2022-02-11T08:38:42.353Z'
+                      DeletedAt: null
+                      username: Armin
+                      email: armin@gmail.com
+                      image: 'https://placehold.jp/150x150.png'
+                      clickCount: 0
+                      destination: デンマーク
+                      eduOrg: University of Copenhagen
+                      term:
+                        id: 5
+                        name: 半年〜1年
+                      type:
+                        - id: 6
+                          name: 交換留学
+                        - id: 7
+                          name: 大学留学
+                      price: 2500
+                    - id: 4
+                      CreatedAt: '2022-02-11T08:38:42.355Z'
+                      UpdatedAt: '2022-02-11T08:38:42.355Z'
+                      DeletedAt: null
+                      username: Mikasa
+                      email: mikasa@gmail.com
+                      image: 'https://placehold.jp/150x150.png'
+                      clickCount: 0
+                      destination: アメリカ
+                      eduOrg: 'University of California, Los Angeles'
+                      term:
+                        id: 5
+                        name: 半年〜1年
+                      type:
+                        - id: 6
+                          name: 交換留学
+                        - id: 7
+                          name: 大学留学
+                        - id: 8
+                          name: 奨学金利用
+                        - id: 9
+                          name: 寮
+                      price: 2000
+      operationId: get-mentors
+      description: ''
+  /mentor:
+    post:
+      summary: Add a mentor
+      tags:
+        - mentor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/Mentor.yaml
+              examples:
+                example-1:
+                  value:
+                    id: 3
+                    username: Kazuki
+                    email: kazuki@gmail.com
+                    image: 'https://placehold.jp/150x150.png'
+                    clickCount: 0
+                    destination: アメリカ
+                    eduOrg: Reading High School
+                    term: 半年〜1年
+                    type:
+                      - 高校留学
+                      - 交換留学
+                      - ホームステイ
+                    price: 100
+      operationId: post-mentor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./models/Mentor.yaml
+            examples:
+              example-1:
+                value:
+                  username: Kazuki
+                  email: kazuki@gmail.com
+                  image: 'https://placehold.jp/150x150.png'
+                  destination: アメリカ
+                  eduOrg: Reading High School
+                  term: 半年〜1年
+                  type:
+                    - 高校留学
+                    - 交換留学
+                    - ホストファミリー
+                  price: 100
+  '/mentor/{mentorId}':
+    parameters:
+      - schema:
+          type: string
+        name: mentorId
+        in: path
+        required: true
+    patch:
+      summary: Update mentor's information
+      tags:
+        - mentor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/Mentor.yaml
+      operationId: patch-mentor-mentorId
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  id: '1'
+                  username: Kazuki
+                  email: kazuki@gmail.com
+                  image: 'https://placehold.jp/150x150.png'
+                  clickCount: 0
+                  destination: アメリカ
+                  eduOrg: Reading High School
+                  term: 半年〜1年
+                  type:
+                    - 高校留学
+                    - 交換留学
+                    - ホストファミリー
+                  price: 100
+              properties:
+                username:
+                  type: string
+                  minLength: 1
+                email:
+                  type: string
+                  minLength: 1
+                image:
+                  type: string
+                  minLength: 1
+                destination:
+                  type: string
+                  minLength: 1
+                eduOrg:
+                  type: string
+                  minLength: 1
+                term:
+                  type: string
+                  minLength: 1
+                type:
+                  type: array
+                  items:
+                    type: string
+                price:
+                  type: number
+              required:
+                - username
+                - email
+                - image
+                - destination
+                - eduOrg
+                - term
+                - type
+                - price
+            examples:
+              Update type:
+                value:
+                  type:
+                    - 高校留学
+                    - 交換留学
+                    - 寮
+              Update price:
+                value:
+                  price: 3000
+        description: ''
+    get:
+      tags:
+        - mentor
+      summary: Get a mentor
+      operationId: get-mentor-by-mentorId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./models/Mentor.yaml
+              examples: {}
+      parameters: []
+  /consultation:
+    post:
+      summary: Create a consultation
+      tags:
+        - consultation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    userId: 23
+                    mentorId: 55
+                    desirableDate: '2月15日19:00~20:00'
+                    message: 寮生活について知りたいです！
+                properties:
+                  userId:
+                    type: number
+                  mentorId:
+                    type: number
+                  desirableDate:
+                    type: string
+                    minLength: 1
+                  message:
+                    type: string
+                    minLength: 1
+                  id:
+                    type: number
+                required:
+                  - userId
+                  - mentorId
+                  - desirableDate
+                  - message
+              examples:
+                example-1:
+                  value:
+                    id: 12345
+                    userId: 0
+                    mentorId: 0
+                    desirableDate: string
+                    message: string
+      operationId: post-consultation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                userId:
+                  type: number
+                mentorId:
+                  type: number
+                desirableDate:
+                  type: string
+                  minLength: 1
+                message:
+                  type: string
+                  minLength: 1
+              required:
+                - userId
+                - mentorId
+                - desirableDate
+                - message
+              x-examples:
+                example-1:
+                  userId: 23
+                  mentorId: 55
+                  desirableDate: '2月15日19:00~20:00'
+                  message: 寮生活について知りたいです！
+            examples:
+              example-1:
+                value:
+                  userId: 23
+                  mentorId: 55
+                  desirableDate: '2月15日19:00~20:00'
+                  message: 寮生活について知りたいです！
+      description: Consultation details
+  /consultations:
+    get:
+      summary: Get all consultations
+      tags:
+        - consultation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: ./models/Consultation.yaml
+              examples:
+                example-1:
+                  value:
+                    - id: 1234
+                      userId: 23
+                      mentorId: 55
+                      desirableDate: '2月15日19:00~20:00'
+                      message: 寮生活について知りたいです！
+                    - id: 1233
+                      userId: 34
+                      mentorId: 41
+                      desirableDate: '3月15日18:00~21:00'
+                      message: 留学前にやっておくべきことを教えてください。
+          headers: {}
+      operationId: get-consultations
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: mentorId
+          description: Get consultations of a specific mentor
+        - schema:
+            type: integer
+          in: query
+          name: userId
+          description: Get consultations of a specific user
+components:
+  schemas: {}
