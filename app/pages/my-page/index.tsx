@@ -27,6 +27,7 @@ export default function MyPage() {
   }
   return (
     <ContainerSm>
+      <p>Name: {user.username}</p>
       <p>Email: {user.email}</p>
       <p>現在の申し込み状況</p>
       <table className='table-fixed mx-auto'>
