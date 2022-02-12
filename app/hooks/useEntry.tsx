@@ -17,6 +17,7 @@ export default function useEntry() {
   const [password, setPassword] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [isSigning, setIsSigning] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
   const { setUser } = useUserSlice();
   const router = useRouter();
 
@@ -143,6 +144,7 @@ export default function useEntry() {
             {isSigning ? 'Loading...' : isForSignup ? 'Sign up' : 'Log in'}
           </button>
         </div>
+        {isError && <p>ERROR! SOMETHING WENT WRONG!</p>}
       </form>
     );
   };
