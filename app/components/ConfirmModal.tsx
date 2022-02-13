@@ -15,14 +15,14 @@ export default function ConfirmModal({
   const { isUserLoggedIn } = useUserSlice();
   const router = useRouter();
   const [desirableDate, setDesirableDate] = useState<string>('');
-  const [comments, setComments] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
   const { consultationDetails, setUserInput, setConsultationDetailsInitial } =
     useConsultationDetailsSlice();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // put user input in persisted state because it will redirect user to payment page
-    setUserInput({ desirableDate, comments });
+    setUserInput({ desirableDate, message });
 
     axios
       .post('/api/paypay', {
@@ -50,7 +50,7 @@ export default function ConfirmModal({
             // モーダルが閉じ切るまでは状態維持
             setConsultationDetailsInitial();
             setDesirableDate('');
-            setComments('');
+            setMessage('');
           }, 500);
         }}
       >
@@ -101,8 +101,8 @@ export default function ConfirmModal({
                 <small>（特に聞いてみたいことなど）</small>
                 <textarea
                   className='w-full mt-2 py-2 px-3 border h-[100px] rounded-sm'
-                  value={comments}
-                  onChange={(e) => setComments(e.target.value)}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                 ></textarea>
                 <div className='mt-4 text-center'>
                   <button

@@ -6,6 +6,7 @@ import ContainerSm from '../../components/ContainerSm';
 export default function PaymentCompleted() {
   const { consultationDetails, setConsultationDetailsInitial } = useConsultationDetailsSlice();
   useEffect(() => {
+
     return () => {
       // ページを離れる時にpersistantのconsultationDetailsをリセット
       setConsultationDetailsInitial();
@@ -27,8 +28,8 @@ export default function PaymentCompleted() {
             <td className='text-lg whitespace-pre-wrap'>{consultationDetails.desirableDate}</td>
           </tr>
           <tr>
-            <td className='font-bold'>コメント</td>
-            <td className='text-lg'>{consultationDetails.comments}</td>
+            <td className='font-bold'>メッセージ</td>
+            <td className='text-lg'>{consultationDetails.message}</td>
           </tr>
         </tbody>
       </table>

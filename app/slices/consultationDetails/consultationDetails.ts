@@ -8,7 +8,7 @@ export type Mentor = {
 
 export type UserInput = {
   desirableDate: string;
-  comments: string;
+  message: string;
 };
 
 export type ConsultationDetails = {
@@ -16,7 +16,7 @@ export type ConsultationDetails = {
   username: string;
   price: number;
   desirableDate: string;
-  comments: string;
+  message: string;
 };
 
 const initialState: ConsultationDetails = {
@@ -24,7 +24,7 @@ const initialState: ConsultationDetails = {
   username: '',
   price: 0,
   desirableDate: '',
-  comments: '',
+  message: '',
 };
 
 const consultationDetailsSlice = createSlice({
@@ -33,16 +33,16 @@ const consultationDetailsSlice = createSlice({
   reducers: {
     setMentor: (_, action: PayloadAction<Mentor>) => {
       const { id, username, price } = action.payload;
-      return { mentorId: id, username, price, desirableDate: '', comments: '' };
+      return { mentorId: id, username, price, desirableDate: '', message: '' };
     },
     setUserInput: (state, action: PayloadAction<UserInput>) => {
-      const { desirableDate, comments } = action.payload;
+      const { desirableDate, message } = action.payload;
       return {
         mentorId: state.mentorId,
         username: state.username,
         price: state.price,
         desirableDate,
-        comments,
+        message,
       };
     },
     setConsultationDetailsInitial: () => {
