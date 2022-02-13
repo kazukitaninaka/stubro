@@ -40,3 +40,5 @@ yarn-error.log*
 # api client
 /api
 /docs/node_modules
+
+.DS_Store
