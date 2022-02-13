@@ -107,6 +107,80 @@ paths:
                 value:
                   email: rebecca@gmail.com
         description: Patch user properties to update.
+  '/user/uid/{uid}':
+    parameters:
+      - schema:
+          type: string
+        name: uid
+        in: path
+        required: true
+    get:
+      summary: Get User Info by User UID
+      tags:
+        - user
+      responses:
+        '200':
+          description: User Found
+          content:
+            application/json:
+              schema:
+                $ref: ./models/User.yaml
+              examples:
+                Get User Bob Fellow:
+                  value:
+                    id: 12345
+                    uid: 123456
+                    firstName: Bob Fellow
+                    email: bob.fellow@gmail.com
+        '404':
+          description: User Not Found
+      operationId: get-user-by-uid
+      description: Retrieve the information of the user with the matching user ID.
+    patch:
+      tags:
+        - user
+      summary: Update User Information
+      operationId: patch-users-userId
+      responses:
+        '200':
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                $ref: ./models/Mentor.yaml
+              examples:
+                Updated User Rebecca Baker:
+                  value:
+                    id: 13
+                    username: Rebecca
+                    email: rebecca@gmail.com
+                    singUpDate: '2019-08-24'
+        '404':
+          description: User Not Found
+        '409':
+          description: Email Already Taken
+      description: Update the information of an existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                  description: >-
+                    If a new email is given, the user's email verified property
+                    will be set to false.
+            examples:
+              Update username:
+                value:
+                  username: Rebecca
+              Update Email:
+                value:
+                  email: rebecca@gmail.com
+        description: Patch user properties to update.
   /user:
     post:
       tags:
