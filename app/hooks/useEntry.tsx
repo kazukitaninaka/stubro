@@ -6,12 +6,13 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   updateProfile,
-  User
+  User,
 } from 'firebase/auth';
 import useUserSlice from '../slices/user/useUserSlice';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
 import { UserApi } from '../api';
+import { getUserIdByUid } from '../utils';
 
 export default function useEntry() {
   const [email, setEmail] = useState<string>('');
@@ -30,13 +31,19 @@ export default function useEntry() {
     });
   }
 
-  function sendUserToBackend(user: User) {
-    const api = new UserApi()
+  async function sendUserToBackend(user: User) {
+    const api = new UserApi();
     // if user signs in with google, username must be user.displayName
-    const name = username ? username : user.displayName!
-    api.postUser({ uid: user.uid, email: user.email!, username: name }).catch(() => {
-      setIsError(true)
-    })
+    const name = username ? username : user.displayName!;
+    try {
+      const res = await api.postUser({ uid: user.uid, email: user.email!, username: name });
+      const userId = res.data.id;
+      return userId;
+    } catch (error) {
+      console.log('sendUserTobackend', error);
+      setIsError(true);
+      setIsSigning(false);
+    }
   }
 
   function login(e: React.FormEvent<HTMLFormElement>) {
@@ -44,18 +51,21 @@ export default function useEntry() {
     e.preventDefault();
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
-        setUser({ id: user.uid, email: user.email!, username: user.displayName! });
 
-        showLoginSucceededModal()
+        const userId = await getUserIdByUid(user.uid)
+
+        setUser({ id: userId!, email: user.email!, username: user.displayName! });
+
+        showLoginSucceededModal();
 
         setIsSigning(false);
         router.push('/');
       })
       .catch((error) => {
         console.log(error);
-        setIsError(true)
+        setIsError(true);
         setIsSigning(false);
       });
   }
@@ -65,20 +75,21 @@ export default function useEntry() {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(async (result) => {
         const user = result.user;
-        setUser({ id: user.uid, email: user.email!, username: user.displayName! });
 
         // in case it is the first time for the user to use this app
-        sendUserToBackend(user)
+        const userId = await sendUserToBackend(user);
 
-        showLoginSucceededModal()
+        setUser({ id: userId!, email: user.email!, username: user.displayName! });
+
+        showLoginSucceededModal();
 
         router.push('/');
       })
       .catch((error) => {
         console.log(error);
-        setIsError(true)
+        setIsError(true);
       });
   }
 
@@ -87,19 +98,19 @@ export default function useEntry() {
     e.preventDefault();
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
 
         updateProfile(user, {
           // set displayName to username, which user input
-          displayName: username
-        })
+          displayName: username,
+        });
 
-        sendUserToBackend(user)
+        const userId = await sendUserToBackend(user);
 
-        setUser({ id: user.uid, email: user.email!, username });
+        setUser({ id: userId!, email: user.email!, username });
 
-        showLoginSucceededModal()
+        showLoginSucceededModal();
 
         setIsSigning(false);
 
@@ -108,7 +119,7 @@ export default function useEntry() {
       })
       .catch((error) => {
         console.log(error);
-        setIsError(true)
+        setIsError(true);
         setIsSigning(false);
       });
   }
