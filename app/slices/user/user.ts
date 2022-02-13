@@ -10,7 +10,7 @@ export type User = {
 const initialState: User = {
   id: null,
   email: '',
-  username: ''
+  username: '',
 };
 
 const userSlice = createSlice({
@@ -21,7 +21,7 @@ const userSlice = createSlice({
       return {
         id: action.payload.id,
         email: action.payload.email,
-        username: action.payload.username
+        username: action.payload.username,
       };
     },
     setUserInitial: () => {
