@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Consultation, ConsultationApi } from '../api';
+import { ConsultationApi, ConsultationRequest } from '../api';
 import useConsultationDetailsSlice from '../slices/consultationDetails/useConsultationDetailsSlice';
 import useUserSlice from '../slices/user/useUserSlice';
 
@@ -8,7 +8,7 @@ export default function useConsultationFetchResult() {
     const { consultationDetails } = useConsultationDetailsSlice();
     const { user } = useUserSlice();
     useEffect(() => {
-        const consultation: Consultation = {
+        const consultation: ConsultationRequest = {
             mentorId: consultationDetails.mentorId!,
             userId: user.id!,
             desirableDate: consultationDetails.desirableDate,
