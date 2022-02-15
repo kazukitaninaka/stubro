@@ -1,0 +1,774 @@
+openapi: 3.0.3
+info:
+  title: openapi
+  version: '1.0'
+  description: ''
+servers:
+  - url: 'http://localhost:3000/go-api'
+paths:
+  /users:
+    get:
+      tags:
+        - user
+      summary: Get all users
+      operationId: get-users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              examples:
+                example-1:
+                  value:
+                    - id: 1
+                      username: Emily
+                      email: emily@gmail.com
+                      uid: nguoreag123456y
+                    - id: 2
+                      username: Tom
+                      email: tom@gmail.com
+                      uid: rbtrs3845nt
+      description: get all users
+  '/user/{userId}':
+    parameters:
+      - schema:
+          type: integer
+        name: userId
+        in: path
+        required: true
+        description: Id of an existing user.
+    get:
+      summary: Get User Info by User ID
+      tags:
+        - user
+      responses:
+        '200':
+          description: User Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Get User Bob Fellow:
+                  value:
+                    id: 12345
+                    username: Bob Fellow
+                    email: bob.fellow@gmail.com
+                    uid: jgriaeoji2834hg
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-user-by-userId
+      description: Retrieve the information of the user with the matching user ID.
+    patch:
+      tags:
+        - user
+      summary: Update User Information
+      operationId: patch-users-userId
+      responses:
+        '200':
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Updated User Rebecca Baker:
+                  value:
+                    id: 13
+                    username: Rebecca
+                    email: rebecca@gmail.com
+                    uid: ejwf494rgeji
+        '404':
+          description: User Not Found
+        '409':
+          description: Email Already Taken
+      description: Update the information of an existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: UserRequest
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                  description: 'If a new email is given, the user''s email verified property will be set to false.'
+            examples:
+              Update username:
+                value:
+                  username: Rebecca
+              Update Email:
+                value:
+                  email: rebecca@gmail.com
+        description: Patch user properties to update.
+  '/user/uid/{uid} - copy':
+    parameters:
+      - schema:
+          type: string
+        name: uid
+        in: path
+        required: true
+    get:
+      summary: Get User Info by User UID
+      tags:
+        - user
+      responses:
+        '200':
+          description: User Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Get User Bob Fellow:
+                  value:
+                    id: 12345
+                    uid: ghre345gnjr
+                    username: Bob Fellow
+                    email: bob.fellow@gmail.com
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-user-by-uid
+      description: Retrieve the information of the user with the matching user ID.
+    patch:
+      tags:
+        - user
+      summary: Update User Information
+      operationId: update-user-by-userId
+      responses:
+        '200':
+          description: User Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                Updated User Rebecca Baker:
+                  value:
+                    id: 13
+                    uid: rgej5g5re
+                    username: Rebecca
+                    email: rebecca@gmail.com
+        '404':
+          description: User Not Found
+        '409':
+          description: Email Already Taken
+      description: Update the information of an existing user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: UserRequest
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                  description: 'If a new email is given, the user''s email verified property will be set to false.'
+            examples:
+              Update username:
+                value:
+                  username: Rebecca
+              Update Email:
+                value:
+                  email: rebecca@gmail.com
+        description: Patch user properties to update.
+  /user:
+    post:
+      tags:
+        - user
+      summary: Create New User
+      operationId: post-user
+      responses:
+        '200':
+          description: User Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+              examples:
+                New User Bob Fellow:
+                  value:
+                    id: 12345
+                    uid: gjeu34trg
+                    username: BobFellow
+                    email: bob.fellow@gmail.com
+        '400':
+          description: Missing Required Information
+        '409':
+          description: Email Already Taken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+            examples:
+              Create User Bob Fellow:
+                value:
+                  username: BobFellow
+                  email: bob.fellow@gmail.com
+        description: Post the necessary fields for the API to create a new user.
+      description: Create a new user.
+  /mentors:
+    get:
+      summary: Get all mentors
+      tags:
+        - mentor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mentor'
+              examples:
+                example-1:
+                  value:
+                    - id: 1
+                      username: Kazuki
+                      email: kazuki@gmail.com
+                      image: 'https://placehold.jp/150x150.png'
+                      clickCount: 0
+                      destination: アメリカ
+                      eduOrg: Reading High School
+                      term:
+                        id: 5
+                        name: 半年〜1年
+                      type:
+                        - id: 7
+                          name: 大学留学
+                        - id: 9
+                          name: 寮
+                        - id: 10
+                          name: 私費留学
+                      price: 100
+                    - id: 2
+                      CreatedAt: '2022-02-11T08:38:42.351Z'
+                      UpdatedAt: '2022-02-11T08:38:42.351Z'
+                      DeletedAt: null
+                      username: Eren
+                      email: eren@gmail.com
+                      image: 'https://placehold.jp/150x150.png'
+                      clickCount: 0
+                      destination: イギリス
+                      eduOrg: University of Oxford
+                      term:
+                        id: 8
+                        name: 4年
+                      type:
+                        - id: 7
+                          name: 大学留学
+                        - id: 9
+                          name: 寮
+                        - id: 10
+                          name: 私費留学
+                      price: 3000
+                    - id: 3
+                      CreatedAt: '2022-02-11T08:38:42.353Z'
+                      UpdatedAt: '2022-02-11T08:38:42.353Z'
+                      DeletedAt: null
+                      username: Armin
+                      email: armin@gmail.com
+                      image: 'https://placehold.jp/150x150.png'
+                      clickCount: 0
+                      destination: デンマーク
+                      eduOrg: University of Copenhagen
+                      term:
+                        id: 5
+                        name: 半年〜1年
+                      type:
+                        - id: 6
+                          name: 交換留学
+                        - id: 7
+                          name: 大学留学
+                      price: 2500
+                    - id: 4
+                      CreatedAt: '2022-02-11T08:38:42.355Z'
+                      UpdatedAt: '2022-02-11T08:38:42.355Z'
+                      DeletedAt: null
+                      username: Mikasa
+                      email: mikasa@gmail.com
+                      image: 'https://placehold.jp/150x150.png'
+                      clickCount: 0
+                      destination: アメリカ
+                      eduOrg: 'University of California, Los Angeles'
+                      term:
+                        id: 5
+                        name: 半年〜1年
+                      type:
+                        - id: 6
+                          name: 交換留学
+                        - id: 7
+                          name: 大学留学
+                        - id: 8
+                          name: 奨学金利用
+                        - id: 9
+                          name: 寮
+                      price: 2000
+      operationId: get-mentors
+      description: ''
+  /mentor:
+    post:
+      summary: Add a mentor
+      tags:
+        - mentor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mentor'
+              examples:
+                example-1:
+                  value:
+                    id: 1
+                    username: Kazuki
+                    email: kazuki@gmail.com
+                    image: 'https://placehold.jp/150x150.png'
+                    clickCount: 0
+                    destination: アメリカ
+                    eduOrg: Reading High School
+                    term:
+                      id: 8
+                      name: 4年
+                    type:
+                      - id: 7
+                        name: 大学留学
+                      - id: 9
+                        name: 寮
+                      - id: 10
+                        name: 私費留学
+                    price: 100
+      operationId: post-mentor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mentor'
+            examples:
+              example-1:
+                value:
+                  id: 1
+                  username: Kazuki
+                  email: kazuki@gmail.com
+                  image: 'https://placehold.jp/150x150.png'
+                  clickCount: 0
+                  destination: アメリカ
+                  eduOrg: Reading High School
+                  term:
+                    id: 8
+                    name: 4年
+                  type:
+                    - id: 7
+                      name: 大学留学
+                    - id: 9
+                      name: 寮
+                    - id: 10
+                      name: 私費留学
+                  price: 100
+  '/mentor/{mentorId}':
+    parameters:
+      - schema:
+          type: string
+        name: mentorId
+        in: path
+        required: true
+    patch:
+      summary: Update mentor's information
+      tags:
+        - mentor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mentor'
+      operationId: patch-mentor
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Mentor'
+            examples:
+              Update type:
+                value:
+                  type:
+                    - id: 7
+                      name: 大学留学
+                    - id: 9
+                      name: 寮
+                    - id: 10
+                      name: 私費留学
+              Update price:
+                value:
+                  price: 3000
+        description: ''
+    get:
+      tags:
+        - mentor
+      summary: Get a mentor
+      operationId: get-mentor-by-mentorId
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mentor'
+              examples: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters: []
+  /consultation:
+    post:
+      summary: Create a consultation
+      tags:
+        - consultation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Consultation'
+              examples:
+                example-1:
+                  value:
+                    id: 1234
+                    user:
+                      id: 3
+                      username: James
+                    mentor:
+                      id: 4
+                      username: Tom
+                    desirableDate: '2月15日19:00~20:00'
+                    message: 寮生活について知りたいです！
+      operationId: post-consultation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConsultationRequest'
+            examples:
+              example-1:
+                value:
+                  userId: 23
+                  mentorId: 55
+                  desirableDate: '2月15日19:00~20:00'
+                  message: 寮生活について知りたいです！
+      description: Consultation details
+  /consultations:
+    get:
+      summary: Get all consultations
+      tags:
+        - consultation
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Consultation'
+              examples:
+                example-1:
+                  value:
+                    - id: 1234
+                      user:
+                        id: 3
+                        username: James
+                      mentor:
+                        id: 4
+                        username: Tom
+                      desirableDate: '2月15日19:00~20:00'
+                      message: 寮生活について知りたいです！
+                    - id: 12345
+                      user:
+                        id: 36
+                        username: Kazuki
+                      mentor:
+                        id: 46
+                        username: Yoshio
+                      desirableDate: '2月15日19:00~20:00'
+                      message: 寮生活について知りたいです！
+          headers: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      operationId: get-consultations
+      parameters:
+        - schema:
+            type: number
+          in: query
+          name: userId
+          description: Get consultations of a specific user
+        - schema:
+            type: number
+          in: query
+          name: mentorId
+          description: Get consultations of a specific mentor
+  /terms:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - term
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Term'
+      operationId: get-terms
+  /types:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - type
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Type'
+      operationId: get-types
+components:
+  schemas:
+    User:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          id: 1
+          username: Emily
+          email: emily@gmail.com
+          uid: akjriek245gkri
+      title: User
+      properties:
+        id:
+          type: number
+        username:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          minLength: 1
+        uid:
+          type: string
+          minLength: 1
+    ConsultationRequest:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          id: 1234
+          userId: 23
+          mentorId: 55
+          desirableDate: '2月15日19:00~20:00'
+          message: 寮生活について知りたいです！
+      properties:
+        id:
+          type: number
+          readOnly: true
+        userId:
+          type: number
+        mentorId:
+          type: number
+        desirableDate:
+          type: string
+          minLength: 1
+        message:
+          type: string
+          minLength: 1
+      required:
+        - userId
+        - mentorId
+        - desirableDate
+        - message
+      title: ConsultationRequest
+    Consultation:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          id: 1234
+          user:
+            id: 3
+            username: James
+          mentor:
+            id: 4
+            username: Tom
+          desirableDate: '2月15日19:00~20:00'
+          message: 寮生活について知りたいです！
+      title: Consultation
+      properties:
+        id:
+          type: number
+          readOnly: true
+        user:
+          $ref: '#/components/schemas/User'
+        mentor:
+          $ref: '#/components/schemas/Mentor'
+        desirableDate:
+          type: string
+          minLength: 1
+        message:
+          type: string
+          minLength: 1
+      required:
+        - user
+        - mentor
+        - desirableDate
+        - message
+    Mentor:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          id: 1
+          username: Kazuki
+          email: kazuki@gmail.com
+          image: 'https://placehold.jp/150x150.png'
+          clickCount: 0
+          destination: アメリカ
+          eduOrg: Reading High School
+          term:
+            id: 8
+            name: 4年
+          type:
+            - id: 7
+              name: 大学留学
+            - id: 9
+              name: 寮
+            - id: 10
+              name: 私費留学
+          price: 100
+      title: ''
+      properties:
+        id:
+          type: number
+        username:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          minLength: 1
+        image:
+          type: string
+          minLength: 1
+        clickCount:
+          type: number
+        destination:
+          type: string
+          minLength: 1
+        eduOrg:
+          type: string
+          minLength: 1
+        term:
+          $ref: '#/components/schemas/Term'
+        type:
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/Type'
+        price:
+          type: number
+    Type:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          id: 7
+          name: 大学留学
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+          minLength: 1
+      required:
+        - name
+    Term:
+      description: ''
+      type: object
+      x-examples:
+        example-1:
+          id: 8
+          name: 4年
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+          minLength: 1
+      required:
+        - name
+    Error:
+      description: ''
+      type: object
+      properties:
+        error:
+          type: string
+          minLength: 1
+        message:
+          type: string
+          minLength: 1
+      required:
+        - error
+        - message
+      x-examples:
+        example-1:
+          error: Error
+          message: Not authenticated
+  responses: {}
