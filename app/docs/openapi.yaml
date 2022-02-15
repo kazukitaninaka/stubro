@@ -117,7 +117,7 @@ paths:
                 value:
                   email: rebecca@gmail.com
         description: Patch user properties to update.
-  '/user/uid/{uid} - copy':
+  '/user/uid/{uid}':
     parameters:
       - schema:
           type: string
