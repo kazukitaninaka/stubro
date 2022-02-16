@@ -2,16 +2,14 @@ import * as React from 'react';
 import { SVGProps } from 'react';
 
 const SvgHangout = (props: SVGProps<SVGSVGElement>) => (
-  <div className='relative w-full'>
+  <div className={`relative ${props.className}`}>
     <svg
       xmlns='http://www.w3.org/2000/svg'
       data-name='Layer 1'
       viewBox='0 0 785.771 658'
-      {...props}
       style={{
         position: "absolute",
-        top: 0,
-        left: 0
+        top: 0
       }}
     >
       <path
@@ -53,7 +51,7 @@ const SvgHangout = (props: SVGProps<SVGSVGElement>) => (
       />
       <path
         d='M459.318 517.088c-1.172-.83-18 8-21 1 14-35 4.352-50.114 12.928-70.185a24.992 24.992 0 0 1 16.567-14.18l22.25-1.122.115.055a26.005 26.005 0 0 1 14.219 27.589c-.08 21.843-13.148 38.503-8.579 54.346a5.122 5.122 0 0 1-.484 3.983 4.884 4.884 0 0 1-3.115 2.31l-29.379-3.92a4.964 4.964 0 0 1-4.016-.777Z'
-        fill='#00b0ff'
+        fill='#fbbf24'
       />
       <circle cx={482.637} cy={399.729} r={24.561} fill='#ffb8b8' />
       <path
@@ -110,7 +108,7 @@ const SvgHangout = (props: SVGProps<SVGSVGElement>) => (
         fill='#3f3d56'
       />
       <path
-        fill='#00b0ff'
+        fill='#fbbf24'
         d='M377.414 417.204h21.911v.981h-21.911zM399.296 431.64a28.16 28.16 0 0 1-22.239 0v-6.911a34.924 34.924 0 0 1 22.239 0Z'
       />
       <path
@@ -122,7 +120,7 @@ const SvgHangout = (props: SVGProps<SVGSVGElement>) => (
         fill='#3f3d56'
       />
       <path
-        fill='#00b0ff'
+        fill='#fbbf24'
         d='M242.414 439.204h21.911v.981h-21.911zM264.296 453.64a28.16 28.16 0 0 1-22.239 0v-6.911a34.924 34.924 0 0 1 22.239 0Z'
       />
       <path
@@ -131,7 +129,7 @@ const SvgHangout = (props: SVGProps<SVGSVGElement>) => (
       />
       <path
         d='m470.927 476.353-24.349-16.557 11.443-16.207a11.168 11.168 0 0 1 13.929-3.64 11.168 11.168 0 0 1 5.894 13.283Z'
-        fill='#00b0ff'
+        fill='#fbbf24'
       />
       <path
         d='M251.877 444.67a8.572 8.572 0 0 0-12.154 5.004l-19.515 1.697-1.861 12.111 27.525-2.784a8.618 8.618 0 0 0 6.005-16.028Z'
