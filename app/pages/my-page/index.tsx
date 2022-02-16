@@ -35,7 +35,7 @@ export default function MyPage() {
       {isError ? <p>エラーが発生し、読み込みに失敗しました。</p> :
         <div className='flex flex-col gap-y-5'>
           {consultations.map((consultation) => (
-            <table className='table-fixed mx-auto'>
+            <table className='table-fixed mx-auto' key={consultation.id}>
               <tbody className='divide-y divide-gray-200'>
                 <tr>
                   <td className='w-1/3 font-bold'>メンター名</td>
