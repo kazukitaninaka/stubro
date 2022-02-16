@@ -1,3 +1,4 @@
+import { getAuth } from "firebase/auth"
 import { useEffect, useState } from "react"
 import { Consultation, ConsultationApi } from "../api"
 import useUserSlice from "../slices/user/useUserSlice"
@@ -12,7 +13,15 @@ export default function useConsultations() {
         (async () => {
             const api = new ConsultationApi()
             try {
-                const res = await api.getConsultations(user.id!)
+                const currentUser = getAuth().currentUser
+                if (!currentUser) return
+
+                const token = await currentUser.getIdToken()
+                const res = await api.getConsultations({ userId: user.id! }, {
+                    headers: {
+                        Authorization: token
+                    }
+                })
                 setConsultations(res.data)
             } catch (error) {
                 setIsError(true)

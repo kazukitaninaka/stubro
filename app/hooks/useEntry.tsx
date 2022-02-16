@@ -36,7 +36,12 @@ export default function useEntry() {
     // if user signs in with google, username must be user.displayName
     const name = username ? username : user.displayName!;
     try {
-      const res = await api.postUser({ uid: user.uid, email: user.email!, username: name });
+      const token = await user.getIdToken()
+      const res = await api.postUser({ uid: user.uid, email: user.email!, username: name }, {
+        headers: {
+          Authorization: token
+        }
+      });
       const userId = res.data.id;
       return userId;
     } catch (error) {
@@ -54,7 +59,7 @@ export default function useEntry() {
       .then(async (userCredential) => {
         const user = userCredential.user;
 
-        const userId = await getUserIdByUid(user.uid)
+        const userId = await getUserIdByUid(user)
 
         setUser({ id: userId!, email: user.email!, username: user.displayName! });
 
