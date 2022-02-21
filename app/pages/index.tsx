@@ -12,12 +12,13 @@ export default function index() {
         </div>
         <Hangout className="h-full mt-5 sm:mt-0 w-[90%] sm:w-1/2 mx-auto" />
       </div>
+
       <div className="flex justify-center">
         <button
           className='bg-sky-500 text-white py-2 px-3 rounded-md hover:bg-sky-600 mt-10 mx-auto'
           onClick={() => router.push("/home")}
         >
-          相談相手一覧を見る
+          相談相手を探してみる
         </button>
       </div>
     </>
