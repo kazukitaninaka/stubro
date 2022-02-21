@@ -27,7 +27,7 @@ export default function Card({
             <tr>
               <td className='font-bold'>留学形態</td>
               <td className='flex flex-wrap gap-x-2 gap-y-0.5'>
-                {mentor.type.map((tag) => (
+                {mentor.type!.map((tag) => (
                   <span
                     key={tag.id}
                     className='flex items-center border-2 border-gray-500 rounded-full px-1.5'
@@ -40,7 +40,7 @@ export default function Card({
             </tr>
             <tr>
               <td className='font-bold'>留学期間</td>
-              <td className='text-lg'>{mentor.term.name}</td>
+              <td className='text-lg'>{mentor.term!.name}</td>
             </tr>
           </tbody>
         </table>
@@ -64,9 +64,9 @@ export default function Card({
           onClick={() => {
             setIsModalOpen(true);
             setMentor({
-              id: mentor.id,
-              username: mentor.username,
-              price: mentor.price,
+              id: mentor.id!,
+              username: mentor.username!,
+              price: mentor.price!,
             });
           }}
         >

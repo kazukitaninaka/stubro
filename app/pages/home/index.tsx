@@ -11,7 +11,7 @@ const Home = ({ mentors }: { mentors: Mentor[] }) => {
             <div className='flex flex-wrap gap-5'>
                 {mentors.map((mentor) => (
                     <Card key={mentor.id} mentor={mentor} setIsModalOpen={setIsModalOpen} />
-                ))}
+                )) ?? <p>ロードに失敗しました</p>}
             </div>
             <ConfirmModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
         </div>
