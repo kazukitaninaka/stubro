@@ -19,7 +19,7 @@ export default function useConsultations() {
                 const token = await currentUser.getIdToken()
                 const res = await api.getConsultations({ userId: user.id! }, {
                     headers: {
-                        Authorization: token
+                        Authorization: `Bearer ${token}`
                     }
                 })
                 setConsultations(res.data)

@@ -39,7 +39,7 @@ export default function useEntry() {
       const token = await user.getIdToken()
       const res = await api.postUser({ uid: user.uid, email: user.email!, username: name }, {
         headers: {
-          Authorization: token
+          Authorization: `Bearer ${token}`
         }
       });
       const userId = res.data.id;

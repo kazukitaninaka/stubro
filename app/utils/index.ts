@@ -7,7 +7,7 @@ export async function getUserIdByUid(user: User): Promise<number | undefined> {
         const token = await user.getIdToken()
         const res = await api.getUserByUid(user.uid, {
             headers:
-                { Authorization: token }
+                { Authorization: `Bearer ${token}` }
         })
         const userId = res.data.id;
         return userId
