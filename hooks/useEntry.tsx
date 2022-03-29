@@ -66,7 +66,7 @@ export default function useEntry() {
         showLoginSucceededModal();
 
         setIsSigning(false);
-        router.push('/');
+        router.push('/home');
       })
       .catch((error) => {
         console.log(error);
@@ -90,7 +90,7 @@ export default function useEntry() {
 
         showLoginSucceededModal();
 
-        router.push('/');
+        router.push('/home');
       })
       .catch((error) => {
         console.log(error);
@@ -120,7 +120,7 @@ export default function useEntry() {
         setIsSigning(false);
 
         // transfer user to root after login
-        router.push('/');
+        router.push('/home');
       })
       .catch((error) => {
         console.log(error);
