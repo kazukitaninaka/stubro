@@ -17,7 +17,8 @@ export default function useConsultations() {
                 if (!currentUser) return
 
                 const token = await currentUser.getIdToken()
-                const res = await api.getConsultations({ userId: user.id! }, {
+                // TODO: mentorIdの引数を無理やりundefinedにして対応
+                const res = await api.getConsultations(user.id!, undefined, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
