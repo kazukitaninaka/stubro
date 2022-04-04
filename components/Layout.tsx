@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <div className='bg-gray-50'>
       <div className='flex flex-col min-h-screen max-w-6xl mx-auto'>
         <header className='p-5 flex justify-between'>
-          <Link href='/'>
+          <Link href='/home'>
             <h1 className='cursor-pointer text-sky-500 text-xl font-semibold'>StuBro 🎓</h1>
           </Link>
           {isUserLoggedIn ? (
