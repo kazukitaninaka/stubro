@@ -4,7 +4,7 @@ export default function MyDocument() {
     const title = "StuBro"
     const description = "留学経験者と気軽に話せるサービス"
     return (
-        <Html>
+        <Html lang='ja'>
             <Head>
                 <title>{title}</title>
                 <meta property="og:title" content={title} />
