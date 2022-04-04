@@ -23,7 +23,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     codeType: 'ORDER_QR',
     orderDescription: `${mentor}さんとの面談の料金`,
     isAuthorization: false,
-    redirectUrl: 'http://localhost:3000/payment-completed',
+    redirectUrl: `${process.env.NODE_ENV === 'production' ? 'https://www.stubro.net/' : 'http://localhost:3000'}/payment-completed`,
     redirectType: 'WEB_LINK',
     userAgent,
   };
