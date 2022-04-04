@@ -24,7 +24,7 @@ const terms = {
   fourYears: '4年',
 };
 
-export default function addMentor() {
+export default function AddMentor() {
   const [selectedTerm, setSelectedTerm] = useState(terms.aWeek);
   return (
     <>
@@ -74,9 +74,8 @@ export default function addMentor() {
                     {({ selectedTerm, active }: { selectedTerm: string; active: boolean }) => (
                       <>
                         <span
-                          className={`${
-                            selectedTerm ? 'font-medium' : 'font-normal'
-                          } block truncate`}
+                          className={`${selectedTerm ? 'font-medium' : 'font-normal'
+                            } block truncate`}
                         >
                           {terms[term as keyof Terms]}
                         </span>

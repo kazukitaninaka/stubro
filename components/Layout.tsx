@@ -35,7 +35,9 @@ export default function Layout({ children }: { children: ReactNode }) {
         <main className='flex-1'>
           <div className='container mx-auto py-5 px-3'>{children}</div>
         </main>
-        <footer className='p-5'>FOOTER</footer>
+        <footer className='p-5'>
+          <small>© 2022 StuBro.</small>
+        </footer>
       </div>
     </div>
   );

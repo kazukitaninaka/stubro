@@ -35,13 +35,13 @@ export default function LP() {
       </div>
       <div className="mt-10">
         <div className="grid grid-cols-12 gap-y-10 lg:gap-x-5">
-          {serviceDescriptionContent.map((content) => {
+          {serviceDescriptionContent.map((content, index) => {
             const descriptionLines = content.description.split("\n")
             return (
-              <div className='h-full w-full border border-transparent rounded-md shadow-md bg-white col-span-12 lg:col-span-4 py-3 px-5 max-w-md'>
+              <div className='h-full w-full border border-transparent rounded-md shadow-md bg-white col-span-12 lg:col-span-4 py-3 px-5 max-w-md' key={`description-${index}`}>
                 <h3 className="text-center font-semibold text-lg">{content.title}</h3>
                 <div className="mt-5">
-                  {descriptionLines.map(line => <p>{line}</p>)}
+                  {descriptionLines.map((line, index) => <p key={`line-${index}`}>{line}</p>)}
                 </div>
               </div>
             )
