@@ -16,7 +16,7 @@ export default function PaymentCompleted() {
       // ページを離れる時にpersistantのconsultationDetailsをリセット
       setConsultationDetailsInitial();
     };
-  }, []);
+  }, [setConsultationDetailsInitial]);
   return (
     <ContainerSm>
       {isRegistering ? <Loading /> :
