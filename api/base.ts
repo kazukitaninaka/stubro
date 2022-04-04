@@ -18,7 +18,7 @@ import { Configuration } from "./configuration";
 // @ts-ignore
 import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 
-export const BASE_PATH = `${process.env.NODE_ENV === "production" ? "https://www.stubro.net" : "http://localhost:3000"}/go-api`.replace(/\/+$/, "");
+export const BASE_PATH = `${process.env.NODE_ENV === "production" ? process.env.NEXT_PUBLIC_API_SERVER_PROD : "http://localhost:8080"}`.replace(/\/+$/, "");
 
 /**
  *
