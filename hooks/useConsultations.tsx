@@ -1,4 +1,4 @@
-import { getAuth } from "firebase/auth"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { useEffect, useState } from "react"
 import { Consultation, ConsultationApi } from "../api"
 import useUserSlice from "../slices/user/useUserSlice"
@@ -10,24 +10,24 @@ export default function useConsultations() {
 
     useEffect(() => {
         if (!isUserLoggedIn) return
-        (async () => {
-            const api = new ConsultationApi()
-            try {
-                const currentUser = getAuth().currentUser
-                if (!currentUser) return
-
-                const token = await currentUser.getIdToken()
-                // TODO: mentorIdの引数を無理やりundefinedにして対応
-                const res = await api.getConsultations(user.id!, undefined, {
+        const api = new ConsultationApi()
+        const auth = getAuth()
+        onAuthStateChanged(auth, async (firebaseUser) => {
+            if (firebaseUser) {
+                const token = await firebaseUser.getIdToken()
+                api.getConsultations(user.id!, undefined, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
+                }).then((res) => {
+                    setConsultations(res.data)
+                }).catch(() => {
+                    setIsError(true)
                 })
-                setConsultations(res.data)
-            } catch (error) {
-                setIsError(true)
+            } else {
+                console.log("no user found")
             }
-        })()
+        })
     }, [])
 
     return { consultations, isError }
