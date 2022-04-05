@@ -7,9 +7,11 @@ import { useRouter } from 'next/router';
 import Loading from '../../components/Loading';
 
 export default function PaymentCompleted() {
-  const { consultationDetails, setConsultationDetailsInitial } = useConsultationDetailsSlice();
-  const { isRegisterSuccess, isRegistering } = useConsultationFetchResult();
   const router = useRouter()
+  const { merchantPaymentId } = router.query
+  const { consultationDetails, setConsultationDetailsInitial } = useConsultationDetailsSlice();
+  const { isRegisterSuccess, isRegistering } = useConsultationFetchResult(merchantPaymentId);
+
 
   useEffect(() => {
     return () => {

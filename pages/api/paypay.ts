@@ -1,7 +1,6 @@
 import PAYPAY from '@paypayopa/paypayopa-sdk-node';
 import { HttpsClientSuccess } from '@paypayopa/paypayopa-sdk-node/dist/lib/httpsClient';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { v4 as uuidv4 } from 'uuid';
 
 PAYPAY.Configure({
   clientId: process.env.NEXT_PUBLIC_PAYPAY_API_KEY!,
@@ -11,9 +10,8 @@ PAYPAY.Configure({
 });
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { amount, mentor, userAgent } = req.body;
+  const { amount, mentor, userAgent, merchantPaymentId } = req.body;
 
-  const merchantPaymentId = uuidv4();
   const payload = {
     merchantPaymentId,
     amount: {
@@ -23,7 +21,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     codeType: 'ORDER_QR',
     orderDescription: `${mentor}さんとの面談の料金`,
     isAuthorization: false,
-    redirectUrl: `${process.env.NODE_ENV === 'production' ? 'https://www.stubro.net/' : 'http://localhost:3000'}/payment-completed`,
+    redirectUrl: `${process.env.NODE_ENV === 'production' ? 'https://www.stubro.net/' : 'http://localhost:3000'}/payment-completed/${merchantPaymentId}`,
     redirectType: 'WEB_LINK',
     userAgent,
   };

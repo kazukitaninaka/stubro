@@ -4,6 +4,8 @@ import { Transition, Dialog } from '@headlessui/react';
 import useUserSlice from '../slices/user/useUserSlice';
 import { useRouter } from 'next/router';
 import useConsultationDetailsSlice from '../slices/consultationDetails/useConsultationDetailsSlice';
+import { ConsultationApi, ConsultationRequest } from '../api';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function ConfirmModal({
   isModalOpen,
@@ -12,17 +14,33 @@ export default function ConfirmModal({
   isModalOpen: boolean;
   setIsModalOpen: Dispatch<SetStateAction<boolean>>;
 }) {
-  const { isUserLoggedIn } = useUserSlice();
+  const { isUserLoggedIn, user } = useUserSlice();
   const router = useRouter();
   const [desirableDate, setDesirableDate] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const { consultationDetails, setUserInput, setConsultationDetailsInitial } =
+  const { consultationDetails, setConsultationDetailsInitial } =
     useConsultationDetailsSlice();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // put user input in persisted state because it will redirect user to payment page
-    setUserInput({ desirableDate, message });
+    // setUserInput({ desirableDate, message });
+    const uid = uuidv4()
+    const consultation: ConsultationRequest = {
+      mentorId: consultationDetails.mentorId!,
+      userId: user.id!,
+      desirableDate,
+      message,
+      uid
+    };
+    const api = new ConsultationApi()
+
+    api
+      .postConsultation(consultation, { headers: { Authorization: `Bearer ${user.token}` } })
+      .then(() => {
+      })
+      .catch((e) => {
+      });
 
     axios
       .post('/api/paypay', {
