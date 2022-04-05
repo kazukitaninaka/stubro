@@ -59,9 +59,12 @@ export default function useEntry() {
       .then(async (userCredential) => {
         const user = userCredential.user;
 
-        const userId = await getUserIdByUid(user)
-
-        setUser({ id: userId!, email: user.email!, username: user.displayName! });
+        const userId = getUserIdByUid(user)
+        const token = user.getIdToken()
+        Promise.all([userId, token]).then((res) => {
+          const [userId, token] = res
+          setUser({ id: userId!, email: user.email!, username: user.displayName!, token });
+        })
 
         showLoginSucceededModal();
 
@@ -84,9 +87,12 @@ export default function useEntry() {
         const user = result.user;
 
         // in case it is the first time for the user to use this app
-        const userId = await sendUserToBackend(user);
-
-        setUser({ id: userId!, email: user.email!, username: user.displayName! });
+        const userId = sendUserToBackend(user);
+        const token = user.getIdToken()
+        Promise.all([userId, token]).then((res) => {
+          const [userId, token] = res
+          setUser({ id: userId!, email: user.email!, username: user.displayName!, token });
+        })
 
         showLoginSucceededModal();
 
@@ -111,9 +117,12 @@ export default function useEntry() {
           displayName: username,
         });
 
-        const userId = await sendUserToBackend(user);
-
-        setUser({ id: userId!, email: user.email!, username });
+        const userId = sendUserToBackend(user);
+        const token = user.getIdToken()
+        Promise.all([userId, token]).then((res) => {
+          const [userId, token] = res
+          setUser({ id: userId!, email: user.email!, username: user.displayName!, token });
+        })
 
         showLoginSucceededModal();
 
