@@ -6,6 +6,7 @@ export default function MyDocument() {
     return (
         <Html lang='ja'>
             <Head>
+                <title>StuBro</title>
                 <meta property="og:title" content={title} />
                 <meta property="og:site_name" content={title} />
                 <meta name="description" content={description} />
