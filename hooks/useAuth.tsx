@@ -15,8 +15,13 @@ export default function useAuth() {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
-          const userId = await getUserIdByUid(user)
-          setUser({ id: userId!, email: user.email!, username: user.displayName! });
+          const userId = getUserIdByUid(user)
+          const token = user.getIdToken()
+          Promise.all([userId, token]).then((res) => {
+            const [userId, token] = res
+            setUser({ id: userId!, email: user.email!, username: user.displayName!, token });
+          })
+
         } catch (error) {
           console.log(error);
         }
